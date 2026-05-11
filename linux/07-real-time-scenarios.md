@@ -97,3 +97,152 @@
 - **Kernel release**: verify `uname -r` when hardware compatibility or distro-specific bugs matter.
 - **Bash init files**: understand `.bash_profile` for login shells and `.bashrc` for interactive shells when debugging environment or PATH issues.
 - **Links**: see `11-concepts.md` for theory, `09-labs.md` for practice, and `08-interview-questions.md` for concept questions.
+
+---
+
+## Real-Time Troubleshooting Decision Tree
+
+### High CPU Issue
+```bash
+# Step 1: Identify the problem
+top
+htop
+
+# Step 2: Find the culprit process
+ps -ef --sort=-%cpu | head -10
+
+# Step 3: Get detailed info
+ps aux | grep PID
+cat /proc/PID/status
+
+# Step 4: Debug (attach with strace, check logs, etc.)
+strace -p PID
+journalctl -u service -f
+
+# Step 5: Kill or restart if needed
+kill -9 PID
+systemctl restart service
+```
+
+### High Memory Issue
+```bash
+# Step 1: Check memory status
+free -m
+free -h
+
+# Step 2: Analyze memory usage
+top -b -n 1
+ps -ef --sort=-%mem | head -10
+
+# Step 3: Check if swap is in use
+free -h | grep Swap
+vmstat 1 3
+
+# Step 4: Find memory leaks or hogs
+ps aux | awk '{print $6, $11}' | sort -rn | head
+
+# Step 5: Add swap if needed (temporary)
+dd if=/dev/zero of=/swapfile bs=1M count=2048
+chmod 600 /swapfile
+mkswap /swapfile
+swapon /swapfile
+```
+
+### Disk Full Issue
+```bash
+# Step 1: Check disk usage
+df -h
+df -i  # Check inode usage too
+
+# Step 2: Find large files/directories
+du -sh /*
+du -sh /path/* | sort -hr | head -10
+
+# Step 3: Find large log files
+find /var/log -type f -size +100M -ls
+
+# Step 4: Clean up
+truncate -s 0 /var/log/file.log
+rm -rf /tmp/* /var/tmp/*
+apt clean && apt autoclean
+
+# Step 5: Identify root cause
+# Check what's consuming space
+lsof +D /path  # Open files in path
+```
+
+### Service Down Issue
+```bash
+# Step 1: Check service status
+systemctl status service
+service service status
+
+# Step 2: View recent logs
+journalctl -u service -n 50 --no-pager
+journalctl -u service -f
+
+# Step 3: Check if process is running
+ps -ef | grep service
+pgrep -f service
+
+# Step 4: Check port/socket
+netstat -tulnp | grep service
+ss -tulnp | grep service
+lsof -i :port
+
+# Step 5: Try to start
+systemctl start service
+systemctl restart service
+
+# Step 6: Check dependencies
+systemctl list-dependencies service
+systemctl list-dependencies --all service
+```
+
+### Port/Connection Issue
+```bash
+# Step 1: Check which process is using the port
+lsof -i :8080
+netstat -tulnp | grep 8080
+ss -tulnp | grep 8080
+
+# Step 2: Check if service is listening
+ss -tuln | grep LISTEN
+
+# Step 3: Check firewall rules
+ufw status
+iptables -L -n
+iptables -L -n | grep 8080
+
+# Step 4: Test connectivity
+telnet localhost 8080
+curl -v localhost:8080
+
+# Step 5: Check routing and DNS
+ping 8.8.8.8
+traceroute target.com
+dig target.com
+nslookup target.com
+
+# Step 6: Check network interface
+ip addr show
+ip route show
+netstat -an | grep ESTABLISHED | wc -l
+```
+
+---
+
+## Quick Troubleshooting Command Reference
+
+| Issue | Command |
+|-------|---------|
+| Monitor logs live | `tail -f /var/log/app.log` or `journalctl -u service -f` |
+| Find process on port | `lsof -i :PORT` or `ss -tulnp \| grep PORT` |
+| Monitor processes | `top`, `htop` |
+| Check system load | `uptime` |
+| Monitor disk in real-time | `watch -n 1 'df -h'` |
+| Monitor network | `nethogs`, `iftop`, `netstat -an` |
+| Monitor file access | `lsof +D /path` |
+| Check service logs | `journalctl -u service --since "1 hour ago"` |
+| Find zombie processes | `ps aux \| grep defunct` |
+| Check open connections | `ss -an \| grep ESTABLISHED \| wc -l` |

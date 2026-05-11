@@ -50,6 +50,24 @@
 - `fsck`: Filesystem check
 
 ## Service Issues
+- `systemctl status service`: Check service status
+- `systemctl start/stop/restart service`: Control service
+- `journalctl -u service`: Service-specific logs
+- `journalctl -u service -n 50 --no-pager`: Last 50 log lines
+
+## Port and Connection Issues
+- `netstat -tulnp`: Show listening ports with PIDs
+- `ss -tulnp`: Socket stats with PIDs (modern alternative)
+- `lsof -i :port`: Find process using port
+- `netstat -an | grep ESTABLISHED`: Show established connections
+- `netstat -an | grep TIME_WAIT`: Check for hung connections
+
+## Large File Issues
+- `find / -type f -size +500M`: Find files larger than 500MB
+- `find / -type f -size +1G`: Find files larger than 1GB
+- `du -sh /* | sort -hr | head`: Top 10 directories by size
+
+## Service Issues
 - `systemctl status service`: Service status
 - `journalctl -u service`: Service logs
 - `systemctl restart service`: Restart

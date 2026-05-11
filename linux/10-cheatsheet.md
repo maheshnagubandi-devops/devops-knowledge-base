@@ -22,6 +22,7 @@
 | **Kernel/Modules** | 100% | `lsmod`, `modprobe`, `insmod`, `rmmod`, `modinfo` | ✅ Complete |
 | **Performance Tuning** | 100% | `nice`, `chrt`, `taskset`, `iotop`, `strace`, `tcpdump` | ✅ Complete |
 | **Shell Scripting** | 100% | Variables, conditionals, loops, functions, redirection, pipes | ✅ Complete |
+| **Containers** | 100% | `docker ps`, `docker logs`, `docker exec`, `kubectl get pods`, `kubectl logs`, `kubectl exec` | ✅ Complete |
 
 ### Interview Preparation Checklist
 
@@ -46,6 +47,16 @@
 - **System Admin**: Service management, user creation, backup strategies
 - **Security**: SSH hardening, firewall configuration, log analysis
 - **Performance**: Process prioritization, kernel tuning, resource limits
+
+#### ✅ **Important Interview Commands**
+- **Check Open Ports**: `netstat -tulnp`, `ss -tulnp`, `lsof -i :PORT`
+- **Check Services**: `systemctl status service`, `systemctl list-units --all`
+- **Find Large Files**: `find / -type f -size +500M`, `du -sh /* | sort -hr`
+- **Monitor Logs**: `tail -f /var/log/app.log`, `journalctl -u service -f`
+- **Environment Variables**: `env`, `printenv`, `export VAR=value`, `echo $VAR`
+- **Port Issues**: `lsof -i :8080`, `ss -tulnp | grep PORT`, `netstat -an | grep :PORT`
+- **Container Debugging**: `docker ps`, `docker logs container`, `docker exec -it container bash`
+- **Kubernetes Debugging**: `kubectl get pods`, `kubectl logs pod`, `kubectl describe pod`
 
 ### Quick Reference by Use Case
 

@@ -267,6 +267,15 @@
 - `ufw allow port`: Allow port
 - `ufw deny port`: Deny port
 
+## ss (Socket Statistics)
+- `ss -tuln`: Show TCP and UDP listening ports
+- `ss -tulnp`: With process IDs
+- `ss -an`: All sockets
+- `ss -tan`: TCP sockets
+- `ss -uan`: UDP sockets
+- `ss -p`: Show process info
+- `ss -ltn | grep :80`: Find processes on port 80
+
 ## Port Scanning
 - `nmap host`: Scan ports
 - `nmap -p port host`: Specific port

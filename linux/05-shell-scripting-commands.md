@@ -28,6 +28,17 @@
 - `readonly var`: Read-only
 - `unset var`: Remove
 
+## Environment Variables
+- `env`: Display all environment variables
+- `printenv`: Print environment variables
+- `printenv VARIABLE`: Print specific variable
+- `export JAVA_HOME=/opt/java`: Set and export environment variable
+- `export PATH=$PATH:/new/path`: Append to PATH
+- `echo $JAVA_HOME`: Display environment variable
+- `export -p`: List all exported variables
+- `unset VARIABLE`: Remove environment variable
+- Common env vars: `$HOME`, `$PATH`, `$USER`, `$SHELL`, `$PWD`, `$JAVA_HOME`, `$CLASSPATH`, `$LD_LIBRARY_PATH`
+
 ## Input/Output
 - `read var`: Read input
 - `echo "text"`: Output

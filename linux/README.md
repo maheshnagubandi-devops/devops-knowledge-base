@@ -6,7 +6,7 @@ This guide provides a comprehensive overview of Linux commands covered in this k
 
 ## 🎯 Coverage Statistics
 
-### **100% Coverage Across 16 Core Categories**
+### **100% Coverage Across 17 Core Categories**
 
 | Category | Commands | Interview Frequency | Difficulty |
 |----------|----------|-------------------|------------|
@@ -22,10 +22,11 @@ This guide provides a comprehensive overview of Linux commands covered in this k
 | **User Management** | `useradd`, `usermod`, `userdel`, `passwd`, `groupadd`, `groupdel` | ⭐⭐⭐⭐⭐ | Beginner |
 | **Archiving** | `tar`, `gzip`, `bzip2`, `zip`, `unzip` | ⭐⭐⭐⭐ | Beginner |
 | **System Admin** | `shutdown`, `reboot`, `halt`, `init`, `runlevel`, `sysctl`, `ulimit` | ⭐⭐⭐⭐ | Advanced |
-| **File System** | `mount`, `umount`, `fsck`, `mkfs`, `fdisk`, `tune2fs`, `resize2fs` | ⭐⭐⭐⭐ | Advanced |
+| **File System** | `mount`, `umount`, `fsck`, `mkfs`, `fdisk`, `tune2fs`, `resize2fs`, `lsblk` | ⭐⭐⭐⭐ | Advanced |
 | **Kernel/Modules** | `lsmod`, `modprobe`, `insmod`, `rmmod`, `modinfo` | ⭐⭐⭐ | Advanced |
 | **Performance Tuning** | `nice`, `chrt`, `taskset`, `iotop`, `strace`, `tcpdump` | ⭐⭐⭐ | Advanced |
-| **Shell Scripting** | Variables, conditionals, loops, functions, redirection, pipes | ⭐⭐⭐⭐ | Intermediate |
+| **Shell Scripting** | Variables, env vars, conditionals, loops, functions, redirection, pipes | ⭐⭐⭐⭐ | Intermediate |
+| **Containers** | `docker`, `docker-compose`, `kubectl`, `docker ps`, `docker logs`, `docker exec` | ⭐⭐⭐⭐ | Advanced |
 
 **Legend**: ⭐ = Interview frequency (5 stars = asked in every interview)
 
@@ -60,7 +61,9 @@ This guide provides a comprehensive overview of Linux commands covered in this k
 - **[02-file-system-commands.md](linux/02-file-system-commands.md)**: File system operations
 - **[03-networking-commands.md](linux/03-networking-commands.md)**: Networking and SSH
 - **[04-process-management-commands.md](linux/04-process-management-commands.md)**: Process management
+- **[05-shell-scripting-commands.md](linux/05-shell-scripting-commands.md)**: Shell scripting and environment variables
 - **[12-user-management-commands.md](linux/12-user-management-commands.md)**: User and group management
+- **[13-container-commands.md](linux/13-container-commands.md)**: Docker and Kubernetes commands
 
 ### **Advanced Topics**
 - **[05-shell-scripting-commands.md](linux/05-shell-scripting-commands.md)**: Shell scripting
