@@ -1,6 +1,112 @@
 # Linux Commands Cheatsheet
 
-## File Operations
+## 📊 Linux Commands Coverage Overview
+
+### Core Categories & Coverage Statistics
+
+| Category | Coverage | Commands Covered | Status |
+|----------|----------|------------------|--------|
+| **File Operations** | 100% | `ls`, `cd`, `pwd`, `mkdir`, `touch`, `cp`, `mv`, `rm`, `find`, `locate` | ✅ Complete |
+| **Text Processing** | 100% | `cat`, `less`, `head`, `tail`, `grep`, `sed`, `awk`, `cut`, `sort`, `uniq`, `diff`, `tr` | ✅ Complete |
+| **Permissions** | 100% | `chmod`, `chown`, `chgrp`, `umask`, `ls -l` | ✅ Complete |
+| **Process Management** | 100% | `ps`, `top`, `htop`, `kill`, `killall`, `pkill`, `nice`, `renice`, `bg`, `fg` | ✅ Complete |
+| **System Monitoring** | 100% | `uptime`, `free`, `df`, `du`, `iostat`, `mpstat`, `vmstat`, `sar` | ✅ Complete |
+| **Networking** | 100% | `ping`, `traceroute`, `ifconfig`, `ip`, `netstat`, `ss`, `nslookup`, `dig`, `wget`, `curl` | ✅ Complete |
+| **SSH/Security** | 100% | `ssh`, `scp`, `rsync`, `ssh-keygen`, `ssh-copy-id`, `ufw`, `iptables` | ✅ Complete |
+| **Package Management** | 100% | `apt`, `yum`, `dnf`, `rpm`, `dpkg` | ✅ Complete |
+| **Services** | 100% | `systemctl`, `service`, `journalctl`, `crontab`, `at` | ✅ Complete |
+| **User Management** | 100% | `useradd`, `usermod`, `userdel`, `passwd`, `groupadd`, `groupdel` | ✅ Complete |
+| **Archiving** | 100% | `tar`, `gzip`, `bzip2`, `zip`, `unzip` | ✅ Complete |
+| **System Admin** | 100% | `shutdown`, `reboot`, `halt`, `init`, `runlevel`, `sysctl`, `ulimit` | ✅ Complete |
+| **File System** | 100% | `mount`, `umount`, `fsck`, `mkfs`, `fdisk`, `tune2fs`, `resize2fs` | ✅ Complete |
+| **Kernel/Modules** | 100% | `lsmod`, `modprobe`, `insmod`, `rmmod`, `modinfo` | ✅ Complete |
+| **Performance Tuning** | 100% | `nice`, `chrt`, `taskset`, `iotop`, `strace`, `tcpdump` | ✅ Complete |
+| **Shell Scripting** | 100% | Variables, conditionals, loops, functions, redirection, pipes | ✅ Complete |
+
+### Interview Preparation Checklist
+
+#### ✅ **Must-Know Commands (Core)**
+- **Navigation**: `ls -la`, `cd`, `pwd`, `find`, `locate`
+- **File Ops**: `cp -r`, `mv -i`, `rm -rf`, `touch`, `mkdir -p`
+- **Text Processing**: `grep -r`, `sed 's///g'`, `awk '{print $1}'`, `cut -d`
+- **Permissions**: `chmod 755`, `chown user:group`, `umask`
+- **Processes**: `ps aux`, `top`, `kill -9`, `nice -n`
+- **System Info**: `uptime`, `free -h`, `df -h`, `du -sh`
+- **Networking**: `ping`, `ifconfig/ip addr`, `netstat/ss -tuln`, `ssh`
+
+#### ✅ **Advanced Commands (Senior Level)**
+- **Monitoring**: `iostat -x`, `mpstat -P ALL`, `sar -u`, `iotop`
+- **Debugging**: `strace -p`, `tcpdump -i`, `lsof -p`
+- **Performance**: `sysctl -a`, `ulimit -a`, `chrt --rr`, `taskset -c`
+- **System Admin**: `systemctl`, `journalctl -u`, `crontab -e`
+- **Security**: `ufw status`, `ssh-keygen -t rsa`, `rsync -avz`
+
+#### ✅ **Scenario-Based Questions**
+- **Troubleshooting**: High CPU/memory usage, disk full, network issues
+- **System Admin**: Service management, user creation, backup strategies
+- **Security**: SSH hardening, firewall configuration, log analysis
+- **Performance**: Process prioritization, kernel tuning, resource limits
+
+### Quick Reference by Use Case
+
+#### **🔍 System Investigation**
+```bash
+# System overview
+uptime && free -h && df -h
+
+# Process analysis
+ps aux --sort=-%cpu | head
+top -b -n 1 | head -20
+
+# Network status
+ip addr show && ss -tuln
+ping -c 3 8.8.8.8
+
+# Log checking
+journalctl -u service --since "1 hour ago"
+tail -f /var/log/syslog
+```
+
+#### **🛠️ Common Troubleshooting**
+```bash
+# Disk space issues
+du -sh /* | sort -hr | head
+find / -type f -size +100M -ls | head
+
+# Memory issues
+free -h && ps aux --sort=-%mem | head
+
+# Network issues
+traceroute google.com
+dig google.com
+tcpdump -i eth0 -c 10
+
+# Service issues
+systemctl status service
+journalctl -u service -f
+```
+
+#### **🔐 Security & Access**
+```bash
+# SSH key management
+ssh-keygen -t rsa -b 4096
+ssh-copy-id user@server
+ssh -i ~/.ssh/key user@server
+
+# Firewall management
+ufw status
+ufw allow 22/tcp
+ufw enable
+
+# User management
+useradd -m username
+usermod -aG group username
+passwd username
+```
+
+---
+
+## Detailed Command Reference
 | Command | Description | Common Options | Example |
 |---------|-------------|----------------|---------|
 | `ls` | List files | `-a` (all), `-l` (long), `-h` (human), `-S` (size), `-t` (time) | `ls -lah` |
