@@ -254,5 +254,36 @@
 9. What is /etc/passwd?
    - File containing user account information
 
-10. What is /etc/shadow?
+5. What is /etc/shadow?
     - File containing encrypted user passwords
+
+## Vi/Vim Editor
+1. What are the main modes in vi/vim?
+   - Command mode (default), Insert mode (i/a/o), Visual mode (v/V/Ctrl+v), Command-line mode (:)
+
+2. How to search and replace in vi/vim?
+   - `:%s/old/new/g` (replace all), `:%s/old/new/gc` (with confirmation)
+
+3. How to delete a line in vi/vim?
+   - `dd` in command mode
+
+4. How to undo in vi/vim?
+   - `u` for undo, `Ctrl+r` for redo
+
+5. How to save and quit in vi/vim?
+   - `:w` (save), `:q` (quit), `:wq` (save and quit), `:q!` (force quit)
+
+6. How to copy and paste in vi/vim?
+   - `yy` (copy line), `p` (paste after cursor), `P` (paste before cursor)
+
+7. How to search in vi/vim?
+   - `/pattern` (forward), `?pattern` (backward), `n` (next), `N` (previous)
+
+8. How to open multiple files in vi/vim?
+   - `vim file1 file2`, `:n` (next file), `:N` (previous file)
+
+9. How to split windows in vi/vim?
+   - `:split` (horizontal), `:vsplit` (vertical), `Ctrl+w` + direction to navigate
+
+10. What is the difference between vi and vim?
+    - vim is enhanced vi with more features like syntax highlighting, multiple windows, etc.
