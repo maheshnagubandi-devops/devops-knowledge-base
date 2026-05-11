@@ -49,3 +49,23 @@
   fi
   ```
 - DevOps use case: put environment setup in `.bash_profile` and interactive shell settings in `.bashrc` to avoid duplicate configuration.
+
+## Filesystem Hierarchy
+- The **root directory** `/` is the top of the Linux filesystem tree.
+- Common top-level directories:
+  - `/bin`: Essential user binaries needed in single-user mode and for all users.
+  - `/sbin`: System binaries for administration, such as `fsck`, `ifconfig`, `iptables`.
+  - `/etc`: Host-specific configuration files and startup scripts.
+  - `/home`: User home directories.
+  - `/root`: Home directory for the root user.
+  - `/usr`: Secondary hierarchy for user programs and libraries.
+    - `/usr/bin`: Non-essential user binaries.
+    - `/usr/sbin`: Non-essential system binaries.
+    - `/usr/lib`: Libraries for `/usr` programs.
+  - `/var`: Variable data like logs, mail, spool files, and runtime files.
+  - `/tmp`: Temporary files, often cleared on reboot.
+  - `/opt`: Optional add-on application software packages.
+  - `/dev`: Device files representing hardware and pseudo-devices.
+  - `/proc`: Virtual filesystem for kernel and process information.
+  - `/sys`: Virtual sysfs filesystem for kernel objects and device info.
+- DevOps use case: understanding this layout helps when troubleshooting configuration, logs, packages, and system services.
