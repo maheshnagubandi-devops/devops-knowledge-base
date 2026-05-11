@@ -90,3 +90,10 @@
 2. Allow port: `ufw allow 80`
 3. Reload: `ufw reload`
 4. Test: `telnet host port`
+
+## Concept Summary for DevOps
+- **Namespaces and cgroups**: use the container basics lab and `11-concepts.md` for theory, especially when troubleshooting container isolation or resource limits.
+- **Zombie processes**: check for `<defunct>` processes in the process table with `ps -eo pid,ppid,state,cmd`.
+- **Kernel release**: verify `uname -r` when hardware compatibility or distro-specific bugs matter.
+- **Bash init files**: understand `.bash_profile` for login shells and `.bashrc` for interactive shells when debugging environment or PATH issues.
+- **Links**: see `11-concepts.md` for theory, `09-labs.md` for practice, and `08-interview-questions.md` for concept questions.
