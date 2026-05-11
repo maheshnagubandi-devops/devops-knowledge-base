@@ -394,7 +394,21 @@
 - `wc --help`: Display help
 - `wc --version`: Display version
 
-## Disk Usage
+## Disk & Storage
+- `lsblk`: List block devices
+- `lsblk -f`: Show filesystems and labels
+- `fdisk -l`: List partition tables
+- `fdisk /dev/sda`: Start interactive disk partitioning
+- `mount /dev/sda1 /mnt`: Mount a filesystem
+- `umount /mnt`: Unmount a filesystem
+
+- `df`: Disk free space
+- `df -h`: Human readable
+- `df -i`: Inodes
+- `df -T`: File system type
+- `df --help`: Display help
+- `df --version`: Display version
+
 - `du`: Disk usage
 - `du -h`: Human readable
 - `du -s`: Summary only
@@ -404,15 +418,7 @@
 - `du --help`: Display help
 - `du --version`: Display version
 
-## Disk Free Space
-- `df`: Disk free space
-- `df -h`: Human readable
-- `df -i`: Inodes
-- `df -T`: File system type
-- `df --help`: Display help
-- `df --version`: Display version
-
-## System Monitoring
+## Memory
 - `free`: Memory usage
 - `free -h`: Human readable
 - `free -s 5`: Update every 5 seconds
