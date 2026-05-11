@@ -117,21 +117,142 @@
 4. LVM components?
    - PV, VG, LV
 
-5. What is swap?
-   - Virtual memory on disk
-
-## Scenarios
-1. Recover root password?
-   - Boot to single user mode
-
-2. Fix broken packages?
-   - `apt --fix-broken install`
-
-3. Monitor system resources?
-   - `top`, `htop`, `sar`
-
-4. Backup filesystem?
-   - `tar -cvzf backup.tar.gz /path`
-
 5. Secure SSH?
    - Disable root login, use keys, change port
+
+## File System & Storage
+1. What is an inode?
+   - Index node containing file metadata (permissions, ownership, timestamps, size, location)
+
+2. Difference between hard and soft links?
+   - Hard link: Direct reference to inode, shares same inode number
+   - Soft link: Pointer to another file, has its own inode
+
+3. What is /proc filesystem?
+   - Virtual filesystem providing process and kernel information
+
+4. How to check filesystem usage?
+   - `df -h` for disk free, `du -sh` for directory usage
+
+5. What is LVM?
+   - Logical Volume Manager: Provides logical layer over physical storage
+
+6. RAID levels and their use cases?
+   - RAID 0: Striping (performance), RAID 1: Mirroring (redundancy)
+   - RAID 5: Parity (balance), RAID 10: Mirror + stripe (performance + redundancy)
+
+## Networking
+1. OSI model layers?
+   - Physical, Data Link, Network, Transport, Session, Presentation, Application
+
+2. TCP vs UDP?
+   - TCP: Connection-oriented, reliable, ordered
+   - UDP: Connectionless, unreliable, faster
+
+3. What is subnetting?
+   - Dividing IP network into sub-networks for better management
+
+4. How does DNS work?
+   - Translates domain names to IP addresses using hierarchical servers
+
+5. What is NAT?
+   - Network Address Translation: Maps private IPs to public IPs
+
+6. Firewall types?
+   - Packet filtering, stateful inspection, proxy, next-gen firewalls
+
+## Security
+1. What is sudo?
+   - Superuser do: Execute commands as another user (usually root)
+
+2. SSH key vs password authentication?
+   - Key: More secure, no password prompts
+   - Password: Simpler but vulnerable to brute force
+
+3. What is SELinux?
+   - Security Enhanced Linux: Mandatory access control system
+
+4. How to check file integrity?
+   - Use checksums: `md5sum`, `sha256sum`
+
+5. What is a rootkit?
+   - Malicious software that hides its presence and maintains privileged access
+
+## Performance & Monitoring
+1. What is load average?
+   - Average number of processes waiting for CPU time over 1, 5, 15 minutes
+
+2. How to monitor system resources?
+   - `top`, `htop`, `sar`, `iostat`, `vmstat`, `free`
+
+3. What is swap space?
+   - Virtual memory on disk when RAM is full
+
+4. How to troubleshoot high CPU usage?
+   - `top` to identify process, `strace` to debug, `nice` to adjust priority
+
+5. What is I/O wait?
+   - Time CPU spends waiting for I/O operations to complete
+
+## Automation & Scripting
+1. What is cron?
+   - Time-based job scheduler in Unix-like systems
+
+2. How to run a script in background?
+   - `nohup script.sh &` or `script.sh &`
+
+3. What is shebang?
+   - `#!/bin/bash` - tells system which interpreter to use
+
+4. How to debug a shell script?
+   - `bash -x script.sh` for trace execution
+
+5. What is xargs?
+   - Builds and executes command lines from standard input
+
+## System Administration
+1. What is runlevel?
+   - System state defining which services are running
+
+2. How to change runlevel?
+   - `init` or `telinit` command (older systems)
+
+3. What is systemd?
+   - Modern init system and service manager
+
+4. How to manage services?
+   - `systemctl start/stop/restart/enable/disable service`
+
+5. What is journald?
+   - systemd's logging system
+
+## Advanced Concepts
+1. What is kernel?
+   - Core part of OS managing hardware and system resources
+
+2. What is a system call?
+   - Interface between user programs and kernel
+
+3. What is virtual memory?
+   - Memory management technique allowing programs to use more memory than physically available
+
+4. What is context switching?
+   - Process of saving and restoring CPU state when switching between processes
+
+5. What is a zombie process?
+   - Process that has completed execution but still has entry in process table
+
+6. What is a daemon?
+   - Background process that runs continuously, not attached to terminal
+
+7. What is syslog?
+   - Standard logging system for Unix-like systems
+
+8. What is /etc/fstab?
+   - File containing information about filesystems to mount at boot
+
+9. What is /etc/passwd?
+   - File containing user account information
+
+10. What is /etc/shadow?
+    - File containing encrypted user passwords
