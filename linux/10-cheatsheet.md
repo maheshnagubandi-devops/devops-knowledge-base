@@ -22,7 +22,24 @@
 | `more` | Simple pager | `-l` (no pause), `-f` (logical lines) | `more +10 file.txt` |
 | `head` | First lines | `-n` (count), `-c` (bytes) | `head -n 20 file.txt` |
 | `tail` | Last lines | `-n` (count), `-f` (follow) | `tail -f /var/log/syslog` |
-| `vi/vim` | Text editor | Insert: `i`, Save: `:w`, Quit: `:q` | `vim file.txt` |
+| `vi/vim` | Text editor | `-R` (readonly), `-r` (recover), `+num` (line) | `vim +10 file.txt` |
+| `nano` | Simple editor | `-w` (no wrap), `-T` (tab size) | `nano -w file.txt` |
+
+### Vi/Vim Quick Reference
+| Mode | Command | Action | Mode | Command | Action |
+|------|---------|--------|------|---------|--------|
+| Cmd | `i` | Insert mode | Cmd | `a` | Append mode |
+| Cmd | `o/O` | New line below/above | Cmd | `Esc` | Command mode |
+| Cmd | `h/j/k/l` | Navigate | Cmd | `w/b` | Word forward/back |
+| Cmd | `0/$` | Line start/end | Cmd | `gg/G` | File start/end |
+| Cmd | `x/dd` | Delete char/line | Cmd | `yy/p` | Copy/paste |
+| Cmd | `u/Ctrl+r` | Undo/redo | Cmd | `cw/cc` | Change word/line |
+| Cmd | `/pattern` | Search forward | Cmd | `?pattern` | Search backward |
+| Cmd | `n/N` | Next/prev match | Cmd | `:s/old/new/g` | Replace in line |
+| Cmd | `:%s/old/new/g` | Replace all | Cmd | `:w/:q/:wq` | Save/quit |
+| Cmd | `:q!` | Force quit | Cmd | `:set number` | Show line numbers |
+| Cmd | `:split` | Horizontal split | Cmd | `:vsplit` | Vertical split |
+| Cmd | `Ctrl+w` + dir | Switch windows | Cmd | `gt/gT` | Next/prev tab |
 
 ## Text Processing
 | Command | Description | Common Options | Example |
