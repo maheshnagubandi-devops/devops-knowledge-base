@@ -60,6 +60,7 @@ This guide provides a comprehensive overview of Linux commands covered in this k
 - **[02-file-system-commands.md](linux/02-file-system-commands.md)**: File system operations
 - **[03-networking-commands.md](linux/03-networking-commands.md)**: Networking and SSH
 - **[04-process-management-commands.md](linux/04-process-management-commands.md)**: Process management
+- **[12-user-management-commands.md](linux/12-user-management-commands.md)**: User and group management
 
 ### **Advanced Topics**
 - **[05-shell-scripting-commands.md](linux/05-shell-scripting-commands.md)**: Shell scripting
