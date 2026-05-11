@@ -156,13 +156,112 @@
 - Used for ephemeral connections
 
 ## SSH
-- `ssh user@host`: Connect
-- `ssh -i key user@host`: Use key
-- `ssh -p port user@host`: Custom port
-- `ssh-keygen -t rsa`: Generate key
-- `ssh-copy-id user@host`: Copy public key
+- `ssh user@host`: Connect to remote host
+- `ssh -i key_file user@host`: Use specific private key
+- `ssh -p port user@host`: Connect to custom port
+- `ssh -o StrictHostKeyChecking=no user@host`: Skip host key verification
+- `ssh -X user@host`: Enable X11 forwarding
+- `ssh -L local_port:remote_host:remote_port user@host`: Local port forwarding
+- `ssh -R remote_port:local_host:local_port user@host`: Remote port forwarding
+- `ssh -D local_port user@host`: Dynamic port forwarding (SOCKS proxy)
+- `ssh -v user@host`: Verbose output for debugging
+- `ssh -T user@host`: Disable pseudo-terminal allocation
 
-## Firewall
+### SSH Key Management
+- `ssh-keygen -t rsa`: Generate RSA key pair (default 2048-bit)
+- `ssh-keygen -t rsa -b 4096`: Generate 4096-bit RSA key
+- `ssh-keygen -t ed25519`: Generate Ed25519 key (modern, more secure)
+- `ssh-keygen -C "comment"`: Add comment to key
+- `ssh-keygen -f ~/.ssh/id_rsa -p`: Change passphrase
+- `ssh-keygen -l -f ~/.ssh/id_rsa.pub`: Show key fingerprint
+- `ssh-keygen -R hostname`: Remove host from known_hosts
+
+### Passwordless SSH Setup (Key-Based Authentication)
+1. **Generate SSH key pair on local machine:**
+   ```bash
+   ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
+   # Press Enter for default location (~/.ssh/id_rsa)
+   # Optionally set a passphrase for extra security
+   ```
+
+2. **Copy public key to remote server:**
+   ```bash
+   ssh-copy-id user@remote-server
+   # Or manually:
+   cat ~/.ssh/id_rsa.pub | ssh user@remote-server "mkdir -p ~/.ssh && cat >> ~/.ssh/authorized_keys"
+   ```
+
+3. **Set proper permissions on remote server:**
+   ```bash
+   ssh user@remote-server
+   chmod 700 ~/.ssh
+   chmod 600 ~/.ssh/authorized_keys
+   ```
+
+4. **Test passwordless connection:**
+   ```bash
+   ssh user@remote-server
+   # Should connect without password prompt
+   ```
+
+5. **Advanced setup - SSH config file (~/.ssh/config):**
+   ```bash
+   Host myserver
+       HostName remote-server.com
+       User myuser
+       Port 22
+       IdentityFile ~/.ssh/id_rsa
+       IdentitiesOnly yes
+       ServerAliveInterval 60
+       ServerAliveCountMax 10
+   
+   # Now connect with: ssh myserver
+   ```
+
+### SSH Agent (Manage multiple keys)
+- `ssh-agent bash`: Start SSH agent
+- `ssh-add ~/.ssh/id_rsa`: Add key to agent
+- `ssh-add -l`: List loaded keys
+- `ssh-add -D`: Remove all keys from agent
+
+### SSH Tunneling Examples
+- **Local port forwarding (access remote service locally):**
+  ```bash
+  ssh -L 8080:localhost:80 user@remote-server
+  # Now access http://localhost:8080 to reach remote port 80
+  ```
+
+- **Remote port forwarding (expose local service remotely):**
+  ```bash
+  ssh -R 8080:localhost:3000 user@remote-server
+  # Remote server can access your local port 3000 via localhost:8080
+  ```
+
+- **SOCKS proxy (route all traffic through SSH):**
+  ```bash
+  ssh -D 1080 user@remote-server
+  # Configure browser to use SOCKS proxy: localhost:1080
+  ```
+
+### SSH Security Best Practices
+- Use strong key types: `ed25519` or `rsa` with 4096+ bits
+- Use passphrases on private keys
+- Disable password authentication in `/etc/ssh/sshd_config`:
+  ```
+  PasswordAuthentication no
+  PubkeyAuthentication yes
+  ```
+- Use non-standard SSH ports
+- Restrict users with `AllowUsers` in sshd_config
+- Regularly rotate SSH keys
+- Monitor SSH logs: `tail -f /var/log/auth.log`
+
+### Troubleshooting SSH Issues
+- **Connection refused:** Check if SSH service is running: `systemctl status ssh`
+- **Permission denied:** Check file permissions and ownership
+- **Host key verification failed:** Remove old key: `ssh-keygen -R hostname`
+- **Connection timed out:** Check firewall, network connectivity
+- **Debug connection:** `ssh -v user@host` for verbose output
 - `ufw status`: UFW status
 - `ufw enable/disable`: Enable/disable
 - `ufw allow port`: Allow port

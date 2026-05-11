@@ -100,6 +100,37 @@
 | `wget` | Download file | `-c` (resume), `-O` (output) | `wget -c http://example.com/file` |
 | `curl` | Transfer data | `-O` (save), `-I` (headers) | `curl -O http://example.com/file` |
 
+### SSH Commands
+| Command | Description | Example |
+|---------|-------------|---------|
+| `ssh user@host` | Connect to remote | `ssh admin@server.com` |
+| `ssh -i key user@host` | Use specific key | `ssh -i ~/.ssh/prod admin@server` |
+| `ssh -p port user@host` | Custom port | `ssh -p 2222 user@host` |
+| `ssh-keygen -t rsa` | Generate key pair | `ssh-keygen -t rsa -b 4096` |
+| `ssh-copy-id user@host` | Copy public key | `ssh-copy-id admin@server` |
+| `ssh-agent bash` | Start SSH agent | `ssh-agent bash` |
+| `ssh-add ~/.ssh/id_rsa` | Add key to agent | `ssh-add ~/.ssh/prod` |
+| `scp file user@host:/path` | Secure copy | `scp config.txt admin@server:/etc/` |
+| `rsync -av src dest` | Sync files | `rsync -av /local/ admin@server:/remote/` |
+
+### Passwordless SSH Setup
+```bash
+# 1. Generate key pair
+ssh-keygen -t rsa -b 4096
+
+# 2. Copy public key to remote server
+ssh-copy-id user@remote-server
+
+# 3. Or manually copy
+cat ~/.ssh/id_rsa.pub | ssh user@server "cat >> ~/.ssh/authorized_keys"
+
+# 4. Set permissions on remote server
+ssh user@server "chmod 700 ~/.ssh && chmod 600 ~/.ssh/authorized_keys"
+
+# 5. Test connection
+ssh user@server  # Should connect without password
+```
+
 ## Archiving & Compression
 | Command | Description | Common Options | Example |
 |---------|-------------|----------------|---------|

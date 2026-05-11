@@ -55,7 +55,36 @@
 4. SSH without password?
    - Copy public key to authorized_keys
 
-## System Administration
+## SSH and Security
+1. How to set up passwordless SSH?
+   - Generate key pair with ssh-keygen, copy public key to remote ~/.ssh/authorized_keys, set proper permissions (700 ~/.ssh, 600 authorized_keys)
+
+2. What is SSH key-based authentication?
+   - Uses public/private key pair instead of passwords; public key on server, private key on client
+
+3. SSH tunneling types?
+   - Local port forwarding (-L), Remote port forwarding (-R), Dynamic port forwarding (-D SOCKS proxy)
+
+4. How to securely copy files between servers?
+   - Use scp with key authentication: `scp -i key file user@host:/path`
+
+5. What is SSH agent?
+   - Program that holds decrypted private keys in memory, eliminates need to enter passphrase repeatedly
+
+6. SSH security best practices?
+   - Use strong keys (ed25519/4096-bit RSA), disable password auth, use non-standard ports, restrict users, monitor logs
+
+7. How to troubleshoot SSH connection issues?
+   - Check service status, verify permissions, test connectivity, use verbose mode (-v), check firewall rules
+
+8. What is X11 forwarding in SSH?
+   - Allows running graphical applications on remote server and displaying them locally
+
+9. How to create SSH config file?
+   - Create ~/.ssh/config with Host entries containing HostName, User, Port, IdentityFile, etc.
+
+10. What are SSH key types?
+    - RSA (traditional), DSA (deprecated), ECDSA (elliptic curve), Ed25519 (modern, recommended)
 1. Check system info?
    - `uname -a`, `hostnamectl`
 

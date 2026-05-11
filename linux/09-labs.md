@@ -139,4 +139,39 @@
 3. Compare: `ls -li file1.txt hardlink softlink`
 4. Find by type: `find . -type l` (links)
 5. Find by permission: `find . -perm 755`
-6. Change recursively: `chmod -R 755 directory/`
+## Lab 16: SSH and Passwordless Authentication
+1. Generate SSH key pair: `ssh-keygen -t rsa -b 4096 -C "yourname@example.com"`
+2. View public key: `cat ~/.ssh/id_rsa.pub`
+3. Create test user on same machine: `sudo useradd testuser && sudo passwd testuser`
+4. Switch to testuser: `su - testuser`
+5. Create .ssh directory: `mkdir ~/.ssh && chmod 700 ~/.ssh`
+6. Copy public key to authorized_keys: `echo "paste_public_key_here" >> ~/.ssh/authorized_keys`
+7. Set permissions: `chmod 600 ~/.ssh/authorized_keys`
+8. Test passwordless login: `ssh testuser@localhost` (should not ask for password)
+9. Exit and return to original user
+
+## Lab 17: SSH Tunneling and Port Forwarding
+1. Start a simple HTTP server on port 8000: `python3 -m http.server 8000 &`
+2. Create SSH tunnel from local port 8080 to remote port 8000: `ssh -L 8080:localhost:8000 localhost`
+3. In another terminal, test the tunnel: `curl http://localhost:8080`
+4. Kill the tunnel and server processes
+5. Try remote port forwarding (if you have another machine): `ssh -R 8080:localhost:8000 remote-server`
+
+## Lab 18: SSH Configuration and Security
+1. Create SSH config file: `nano ~/.ssh/config`
+   ```
+   Host dev
+       HostName dev-server.example.com
+       User devuser
+       Port 2222
+       IdentityFile ~/.ssh/dev_key
+   
+   Host prod
+       HostName prod-server.example.com
+       User produser
+       StrictHostKeyChecking no
+   ```
+2. Test config: `ssh dev` (should use config settings)
+3. Check SSH server config: `sudo nano /etc/ssh/sshd_config`
+4. View current SSH settings: `sudo sshd -T | grep -E "(passwordauth|pubkeyauth|port)"`
+5. Create backup of config: `sudo cp /etc/ssh/sshd_config /etc/ssh/sshd_config.backup`
