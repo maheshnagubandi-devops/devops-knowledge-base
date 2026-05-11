@@ -123,51 +123,196 @@
 - `vim +<num> <file>`: Open at line number
 - `vim +/<pattern> <file>`: Open at pattern
 - `vim -c "command" <file>`: Execute command after opening
+- `vim -O file1 file2`: Open files in vertical split
+- `vim -o file1 file2`: Open files in horizontal split
+- `vim -d file1 file2`: Open files in diff mode
+- `vim -b <file>`: Open binary file
+- `vim --version`: Show vim version and features
 
 ### Vi Modes
-- `i`: Insert mode
-- `a`: Append mode
+- `i`: Insert mode (before cursor)
+- `a`: Append mode (after cursor)
+- `I`: Insert at beginning of line
+- `A`: Append at end of line
 - `o`: Open new line below
 - `O`: Open new line above
 - `Esc`: Command mode
 - `:`: Command line mode
+- `v`: Visual mode (character selection)
+- `V`: Visual line mode (line selection)
+- `Ctrl+v`: Visual block mode (column selection)
 
 ### Navigation
 - `h/j/k/l`: Left/down/up/right
-- `w`: Next word
-- `b`: Previous word
+- `w`: Next word start
+- `W`: Next WORD start (ignores punctuation)
+- `b`: Previous word start
+- `B`: Previous WORD start
+- `e`: End of word
+- `E`: End of WORD
 - `0`: Beginning of line
 - `$`: End of line
+- `^`: First non-blank character of line
 - `gg`: Beginning of file
 - `G`: End of file
 - `:<num>`: Go to line number
+- `H`: Top of screen
+- `M`: Middle of screen
+- `L`: Bottom of screen
+- `Ctrl+f`: Page forward
+- `Ctrl+b`: Page backward
+- `Ctrl+d`: Half page down
+- `Ctrl+u`: Half page up
+- `%`: Jump to matching bracket
+- `(`: Previous sentence
+- `)`: Next sentence
+- `{`: Previous paragraph
+- `}`: Next paragraph
 
 ### Editing
-- `x`: Delete character
-- `dd`: Delete line
-- `yy`: Copy line
-- `p`: Paste
-- `u`: Undo
-- `Ctrl+r`: Redo
-- `r`: Replace character
+- `x`: Delete character under cursor
+- `X`: Delete character before cursor
+- `dd`: Delete current line
+- `D`: Delete from cursor to end of line
+- `dw`: Delete word
+- `d$`: Delete to end of line
+- `d0`: Delete to beginning of line
+- `yy`: Yank (copy) current line
+- `yw`: Yank word
+- `y$`: Yank to end of line
+- `p`: Paste after cursor
+- `P`: Paste before cursor
+- `u`: Undo last change
+- `Ctrl+r`: Redo last undone change
+- `U`: Undo all changes on current line
+- `r`: Replace single character
+- `R`: Replace mode (overwrite)
 - `cw`: Change word
-- `cc`: Change line
+- `cc`: Change entire line
+- `C`: Change from cursor to end of line
+- `s`: Substitute character
+- `S`: Substitute line
+- `~`: Toggle case of character
+- `J`: Join lines
+- `.`: Repeat last command
 
 ### Search and Replace
-- `/pattern`: Search forward
-- `?pattern`: Search backward
+- `/pattern`: Search forward for pattern
+- `?pattern`: Search backward for pattern
 - `n`: Next occurrence
 - `N`: Previous occurrence
-- `:%s/old/new/g`: Replace all
+- `*`: Search for word under cursor
+- `#`: Search backward for word under cursor
+- `:%s/old/new/g`: Replace all occurrences in file
 - `:%s/old/new/gc`: Replace with confirmation
+- `:s/old/new/`: Replace first occurrence in line
+- `:s/old/new/g`: Replace all in current line
+- `:%s/^/#/` : Comment all lines
+- `:%s/^#//` : Uncomment all lines
+- `:g/pattern/d`: Delete all lines containing pattern
+- `:v/pattern/d`: Delete all lines NOT containing pattern
+
+### Visual Mode Operations
+- `v` then move: Select text, then `d` (delete), `y` (yank), `c` (change)
+- `V` then move: Select lines, then operations
+- `Ctrl+v` then move: Select block, then operations
+- `>`: Indent selected text
+- `<`: Unindent selected text
+- `=` : Auto-indent selected text
+- `~`: Toggle case of selection
+
+### Advanced Editing
+- `Ctrl+a`: Increment number under cursor
+- `Ctrl+x`: Decrement number under cursor
+- `gq`: Format text (wrap lines)
+- `g?`: Rot13 encode/decode
+- `ga`: Show ASCII value of character
+- `gf`: Open file under cursor
+- `gd`: Go to definition (local)
+- `gD`: Go to definition (global)
+
+### Windows and Tabs
+- `:split` or `:sp`: Horizontal split
+- `:vsplit` or `:vsp`: Vertical split
+- `Ctrl+w h/j/k/l`: Move between windows
+- `Ctrl+w =`: Equalize window sizes
+- `Ctrl+w _`: Maximize current window
+- `Ctrl+w |`: Maximize vertical window
+- `:tabnew`: New tab
+- `gt`: Next tab
+- `gT`: Previous tab
+- `:tabclose`: Close tab
 
 ### Saving and Quitting
 - `:w`: Write/save
-- `:q`: Quit
+- `:w filename`: Save as filename
 - `:wq`: Write and quit
+- `:x`: Write and quit (only if modified)
+- `:q`: Quit
 - `:q!`: Quit without saving
-- `:w!`: Force write
+- `:w!`: Force write (overwrite)
 - `:wq!`: Force write and quit
+- `:qa`: Quit all windows
+- `:qa!`: Quit all without saving
+- `ZZ`: Write and quit (same as :x)
+- `ZQ`: Quit without saving (same as :q!)
+
+### File Operations
+- `:e filename`: Edit new file
+- `:r filename`: Read file into current buffer
+- `:r !command`: Read command output into buffer
+- `:w !command`: Write buffer to command
+- `:saveas filename`: Save as new file
+
+### Buffers
+- `:ls` or `:buffers`: List buffers
+- `:b num`: Switch to buffer number
+- `:bd`: Delete buffer
+- `:bn`: Next buffer
+- `:bp`: Previous buffer
+
+### Marks and Bookmarks
+- `m{a-z}`: Set mark
+- `'{a-z}`: Jump to mark
+- `''`: Jump to last position
+- `:marks`: List all marks
+
+### Registers
+- `"{register}y`: Yank to named register
+- `"{register}p`: Paste from named register
+- `:reg`: Show register contents
+- `"+y`: Yank to system clipboard
+- `"+p`: Paste from system clipboard
+
+### Macros
+- `q{register}`: Start recording macro
+- `q`: Stop recording
+- `@{register}`: Execute macro
+- `@@`: Repeat last macro
+
+### Configuration
+- `:set number`: Show line numbers
+- `:set nonumber`: Hide line numbers
+- `:set autoindent`: Auto indent
+- `:set noautoindent`: No auto indent
+- `:set ignorecase`: Case insensitive search
+- `:set noignorecase`: Case sensitive search
+- `:set hlsearch`: Highlight search results
+- `:set nohlsearch`: No highlight
+- `:set syntax on`: Syntax highlighting
+- `:set syntax off`: No syntax highlighting
+
+### Useful Commands
+- `:set list`: Show invisible characters
+- `:set nolist`: Hide invisible characters
+- `:retab`: Convert tabs to spaces
+- `:sort`: Sort lines
+- `:noh`: Clear search highlighting
+- `:set paste`: Paste mode (no auto-indent)
+- `:set nopaste`: Exit paste mode
+- `:!command`: Execute shell command
+- `:r!command`: Insert command output
+- `:sh`: Start shell (Ctrl+D to return)
 
 - `ls`: List files
 - `ls -a`: All files (including hidden)
