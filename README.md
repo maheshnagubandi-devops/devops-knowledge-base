@@ -8,9 +8,10 @@ A comprehensive DevOps, Cloud, SRE, Platform Engineering, and Automation knowled
 
 - Learning
 - Teaching & Mentoring
-- Interview Preparation
+- Interview Preparation with cheat sheets and quick reference guides
 - Hands-on Practice
 - Real-Time Troubleshooting
+- Architecture diagrams and conceptual visualization
 - Team Onboarding
 - Knowledge Sharing
 
@@ -49,10 +50,42 @@ This repository contains structured documentation, cheat sheets, practical labs,
 - SRE Concepts
 - Security
 - Shell Scripting
-- API Testing
-- QA Automation
+- API Testing & API Documentation
+- Ansible
+- SonarQube
+- Veracode
+- Venafi
+- Bruno
+- BrowserStack
+- Playwright
+- Selenium
+- QA Automation (introductory awareness)
 - System Design
 - Platform Engineering
+
+---
+
+# Interview Awareness
+
+This repository also includes introductory summaries for tools and concepts that are useful to remember before interviews, including:
+
+- API documentation and API testing best practices
+- DevOps automation with Ansible
+- Static analysis and quality gates with SonarQube
+- Application security scanning with Veracode and Venafi
+- QA/tool awareness for Bruno, BrowserStack, Playwright, and Selenium
+
+---
+
+# DevSecOps & Security Scanning
+
+This space is designed to give you quick recall for security-related DevOps topics, such as:
+
+- secure automation and configuration management with Ansible
+- continuous code quality and security checks with SonarQube
+- application vulnerability scanning with Veracode
+- certificate and key lifecycle management with Venafi
+- browser/automation testing awareness with Bruno, BrowserStack, Playwright, and Selenium
 
 ---
 
@@ -80,8 +113,9 @@ This repository is useful for:
 - DevOps Engineers
 - SRE Engineers
 - Platform Engineers
-- QA Automation Engineers
+- Cloud Infrastructure Engineers (AWS)
 - Cloud Engineers
+- QA Automation Engineers
 - Students & Freshers
 - Mentors & Trainers
 - Teams conducting internal knowledge sharing
@@ -113,6 +147,49 @@ To build a centralized DevOps learning platform that can serve as:
 - A technical interview handbook
 - A team onboarding guide
 - A reusable documentation platform for the community
+
+---
+
+# Repo Strategy
+
+This repository is intended to stay focused on:
+
+- teaching material and learning paths
+- interview preparation with cheat sheets and question banks
+- diagrams, architecture notes, and conceptual summaries
+- role-specific DevOps/SRE/Platform/Cloud knowledge
+
+Real production projects and sample code are better maintained in a separate repo so you can share clean, interview-ready examples without mixing them with teaching content.
+
+## Future website / docs actions
+
+- Create a documentation website later using GitHub Pages
+- Use a static site generator such as MkDocs or Docusaurus
+- Publish learning content in a searchable, student-friendly format
+
+---
+
+# Future Benefits
+
+This repository becomes:
+
+- your portfolio
+- teaching platform
+- interview handbook
+- personal wiki
+- public knowledge base
+
+Recruiters also love this.
+
+# Suggested Future Stack
+
+| Purpose              | Tool              |
+|----------------------|-------------------|
+| Repository           | GitHub            |
+| Documentation Engine | MkDocs Material   |
+| Hosting              | GitHub Pages      |
+| Diagrams             | Draw.io           |
+| Markdown Editing     | Visual Studio Code|
 
 ---
 
