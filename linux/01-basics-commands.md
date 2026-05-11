@@ -75,3 +75,12 @@
 - `date`: Current date/time
 - `hostname`: Hostname
 - `hostname -i`: IP address
+
+## Text Processing Basics
+- `awk '{print $1}' file`: Print first column
+- `awk '/pattern/' file`: Find lines with pattern
+- `grep 'pattern' file`: Search for text
+- `sed 's/old/new/g' file`: Replace text
+- `cut -d',' -f1 file`: Extract columns
+- `sort file`: Sort lines
+- `uniq file`: Remove duplicates

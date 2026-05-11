@@ -75,7 +75,20 @@
 - `join`: Join on key
 - `tr`: Translate characters
 - `sed`: Stream editor
-- `awk`: Pattern scanning
+- `awk`: Pattern scanning and text processing
+
+## AWK Commands
+- `awk '{print $1}' file`: Print first column
+- `awk '{print $NF}' file`: Print last column
+- `awk 'NR==5' file`: Print line 5
+- `awk '/pattern/' file`: Print lines matching pattern
+- `awk '{sum += $1} END {print sum}' file`: Sum column 1
+- `awk 'length($0) > 80' file`: Lines longer than 80 chars
+- `awk '{print NR, $0}' file`: Add line numbers
+- `awk -F',' '{print $2}' file`: Use comma as delimiter
+- `awk 'BEGIN {FS=","; OFS="|"} {print $1, $2}' file`: Field separators
+- `awk '$3 > 100' file`: Numeric comparison
+- `awk '{if ($1 > 50) print $0}' file`: Conditional printing
 
 ## File Operations in Scripts
 - `test -f file`: File exists
