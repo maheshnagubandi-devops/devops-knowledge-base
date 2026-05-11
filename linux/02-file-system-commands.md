@@ -2,35 +2,47 @@
 
 ## Copying Files
 - `cp source dest`: Copy file
-- `cp -r dir1 dir2`: Copy directory
+- `cp -r dir1 dir2`: Copy directory recursively
 - `cp -i`: Interactive (confirm overwrite)
-- `cp -b`: Backup
-- `cp -f`: Force
-- `cp -p`: Preserve attributes
-- `cp -u`: Update (newer only)
-- `cp -l`: Hard link
-- `cp -s`: Symbolic link
-- `cp -v`: Verbose
-- `cp -n`: No overwrite
+- `cp -b`: Backup existing files
+- `cp -f`: Force overwrite
+- `cp -p`: Preserve attributes (permissions, timestamps, ownership)
+- `cp -u`: Update (copy only if source is newer)
+- `cp -l`: Create hard link instead of copying
+- `cp -s`: Create symbolic link instead of copying
+- `cp -v`: Verbose output
+- `cp -n`: No overwrite (don't overwrite existing files)
+- `cp -a`: Archive mode (preserve all attributes)
+- `cp -d`: Preserve links
+- `cp -t dest file1 file2`: Copy multiple files to destination
+- `cp --help`: Display help
+- `cp --version`: Display version
 
 ## Moving/Renaming
 - `mv source dest`: Move/rename
-- `mv -i`: Interactive
-- `mv -b`: Backup
-- `mv -f`: Force
-- `mv -u`: Update
-- `mv -v`: Verbose
+- `mv -i`: Interactive (confirm overwrite)
+- `mv -b`: Backup existing files
+- `mv -f`: Force overwrite
+- `mv -u`: Update (move only if source is newer)
+- `mv -v`: Verbose output
 - `mv -n`: No overwrite
-- `mv -t dest file1 file2`: Move multiple to dest
+- `mv -t dest file1 file2`: Move multiple files to destination
+- `mv --help`: Display help
+- `mv --version`: Display version
 
 ## Removing Files
 - `rm file`: Delete file
-- `rm -f`: Force
-- `rm -i`: Interactive
-- `rm -r dir`: Recursive (directory)
-- `rm -rf dir`: Force recursive
+- `rm -f`: Force delete (no confirmation)
+- `rm -i`: Interactive (confirm each deletion)
+- `rm -r dir`: Recursive delete (directory and contents)
+- `rm -rf dir`: Force recursive delete
+- `rm -d dir`: Remove empty directory
+- `rm -v`: Verbose output
+- `rm --help`: Display help
+- `rm --version`: Display version
 - `rmdir dir`: Remove empty directory
-- `rmdir -p dir1/dir2`: Remove parent if empty
+- `rmdir -p dir1/dir2`: Remove parent directories if empty
+- `rmdir -v`: Verbose output
 
 ## Finding Files
 - `find path -name pattern`: Find by name
@@ -97,10 +109,40 @@
 - `gunzip file.gz`: Decompress
 
 ## Package Management
+### APT (Debian/Ubuntu)
 - `apt update`: Update package list
-- `apt upgrade`: Upgrade packages
-- `apt install package`: Install
-- `apt remove package`: Remove
-- `apt purge package`: Remove with config
-- `apt autoremove`: Remove unused
+- `apt upgrade`: Upgrade all packages
+- `apt full-upgrade`: Upgrade with dependencies
+- `apt install package`: Install package
+- `apt install -y package`: Install without confirmation
+- `apt remove package`: Remove package
+- `apt purge package`: Remove package and config
+- `apt autoremove`: Remove unused dependencies
 - `apt search term`: Search packages
+- `apt show package`: Show package info
+- `apt list --installed`: List installed packages
+- `apt list --upgradable`: List upgradable packages
+- `apt edit-sources`: Edit sources list
+- `apt --help`: Display help
+- `apt --version`: Display version
+
+### YUM/DNF (Red Hat/CentOS/Fedora)
+- `yum update`: Update all packages
+- `yum install package`: Install package
+- `yum remove package`: Remove package
+- `yum search term`: Search packages
+- `yum info package`: Show package info
+- `yum list installed`: List installed packages
+- `yum clean all`: Clean cache
+- `yum --help`: Display help
+- `yum --version`: Display version
+
+- `dnf update`: Update all packages (newer yum)
+- `dnf install package`: Install package
+- `dnf remove package`: Remove package
+- `dnf search term`: Search packages
+- `dnf info package`: Show package info
+- `dnf list installed`: List installed packages
+- `dnf clean all`: Clean cache
+- `dnf --help`: Display help
+- `dnf --version`: Display version

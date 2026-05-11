@@ -70,12 +70,68 @@
 - `set +x`: Disable tracing
 
 ## Text Processing
-- `cut`: Cut fields
-- `paste`: Join files
-- `join`: Join on key
-- `tr`: Translate characters
-- `sed`: Stream editor
-- `awk`: Pattern scanning and text processing
+- `grep 'pattern' file`: Search for pattern
+- `grep -i 'pattern' file`: Case insensitive
+- `grep -v 'pattern' file`: Invert match
+- `grep -n 'pattern' file`: Show line numbers
+- `grep -c 'pattern' file`: Count matches
+- `grep -l 'pattern' *`: Files containing pattern
+- `grep -r 'pattern' dir`: Recursive search
+- `grep -A 2 'pattern' file`: After context
+- `grep -B 2 'pattern' file`: Before context
+- `grep -C 2 'pattern' file`: Context around
+- `grep -E 'pattern1|pattern2' file`: Extended regex
+- `grep -F 'pattern' file`: Fixed strings
+- `grep --help`: Display help
+- `grep --version`: Display version
+
+- `sed 's/old/new/g' file`: Replace text
+- `sed 's/old/new/g' file > newfile`: Save to new file
+- `sed -i 's/old/new/g' file`: Edit in place
+- `sed '/pattern/d' file`: Delete lines
+- `sed '/pattern/p' file`: Print matching lines
+- `sed '5d' file`: Delete line 5
+- `sed '1,10d' file`: Delete lines 1-10
+- `sed 's/^/#/' file`: Comment lines
+- `sed 's/$/END/' file`: Append to end of lines
+- `sed -n '1,5p' file`: Print lines 1-5
+- `sed --help`: Display help
+- `sed --version`: Display version
+
+- `cut -d',' -f1 file`: Extract fields
+- `cut -c1-10 file`: Extract characters
+- `cut -d':' -f1,3 file`: Multiple fields
+- `cut --complement -f1 file`: All except field 1
+- `cut --help`: Display help
+- `cut --version`: Display version
+
+- `sort file`: Sort lines
+- `sort -n file`: Numeric sort
+- `sort -r file`: Reverse sort
+- `sort -k2 file`: Sort by field 2
+- `sort -u file`: Unique
+- `sort -t',' -k2 file`: Custom delimiter
+- `sort --help`: Display help
+- `sort --version`: Display version
+
+- `uniq file`: Remove duplicates
+- `uniq -c file`: Count occurrences
+- `uniq -d file`: Show duplicates only
+- `uniq -u file`: Show unique only
+- `uniq --help`: Display help
+- `uniq --version`: Display version
+
+- `diff file1 file2`: Compare files
+- `diff -u file1 file2`: Unified format
+- `diff -r dir1 dir2`: Recursive
+- `diff --help`: Display help
+- `diff --version`: Display version
+
+- `tr 'a-z' 'A-Z' < file`: Translate characters
+- `tr -d '\n' < file`: Delete characters
+- `tr -s ' ' < file`: Squeeze repeats
+- `tr --help`: Display help
+- `tr --version`: Display version
 
 ## AWK Commands
 - `awk '{print $1}' file`: Print first column
