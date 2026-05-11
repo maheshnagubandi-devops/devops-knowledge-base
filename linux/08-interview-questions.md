@@ -338,6 +338,16 @@
    - Background process that runs continuously, not attached to terminal
 
 7. What is syslog?
+
+8. What are namespaces?
+   - Kernel feature that isolates process IDs, network, mounts, IPC, UTS, and user IDs for containers
+
+9. What are cgroups?
+   - Mechanism for limiting and accounting CPU, memory, block I/O, and other resources for groups of processes
+
+10. What is the difference between `.bashrc` and `.bash_profile`?
+   - `.bash_profile` runs for login shells; `.bashrc` runs for interactive non-login shells
+
    - Standard logging system for Unix-like systems
 
 8. What is /etc/fstab?

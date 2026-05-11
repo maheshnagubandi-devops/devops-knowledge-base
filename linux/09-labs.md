@@ -212,3 +212,11 @@
 4. Check process priority: `ps -o pid,ni,cmd -p $!`
 5. Test CPU affinity: `taskset -c 0 sleep 5 &`
 6. Monitor with top: `top -b -n 1 | head -20`
+
+## Lab 24: Linux Concepts and Container Basics
+1. Verify kernel release: `uname -r`
+2. List namespaces: `lsns | head`
+3. Inspect network namespaces: `ip netns list` (if available)
+4. View cgroup process tree: `systemd-cgls` (or `cat /proc/self/cgroup`)
+5. Detect zombie processes: `ps -eo pid,ppid,state,cmd | grep ' Z'`
+6. Check bash init files: `cat ~/.bash_profile ~/.bashrc` and explain which file runs for login vs interactive shells`

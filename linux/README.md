@@ -65,10 +65,11 @@ This guide provides a comprehensive overview of Linux commands covered in this k
 - **[05-shell-scripting-commands.md](linux/05-shell-scripting-commands.md)**: Shell scripting
 - **[06-troubleshooting-commands.md](linux/06-troubleshooting-commands.md)**: System troubleshooting
 - **[07-real-time-scenarios.md](linux/07-real-time-scenarios.md)**: Real-world scenarios
+- **[11-concepts.md](linux/11-concepts.md)**: Linux concepts for DevOps engineers
 
 ### **Interview Preparation**
 - **[08-interview-questions.md](linux/08-interview-questions.md)**: 50+ interview questions
-- **[09-labs.md](linux/09-labs.md)**: 23 hands-on practice labs
+- **[09-labs.md](linux/09-labs.md)**: 24 hands-on practice labs
 
 ## 🎯 Interview Preparation Strategy
 
@@ -206,6 +207,19 @@ groups username
 - **Real Scenarios**: Study `07-real-time-scenarios.md`
 - **Command Reference**: Use `10-cheatsheet.md` for quick lookup
 - **Interview Questions**: Review `08-interview-questions.md`
+
+## ⚠️ What This Guide Does Not Cover
+
+This guide focuses on Linux command-line skills, system administration, troubleshooting, and interview-ready DevOps topics.
+
+### Not covered in detail here:
+- Kernel development, compilation, and custom kernel builds
+- Deep SELinux/AppArmor policy configuration and advanced MAC rules
+- LVM, RAID, and advanced storage layer design
+- Bootloader internals (GRUB/LILO) and boot rescue workflows
+- Full virtualization/hypervisor management (KVM, Xen, VMware internals)
+- Container runtime internals, namespaces, and cgroup architecture beyond CLI tooling
+- Cloud provider-specific Linux operations, managed instance platforms, and provider APIs
 
 ---
 

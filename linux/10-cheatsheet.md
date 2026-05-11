@@ -363,6 +363,15 @@ ssh user@server  # Should connect without password
 | `rmmod` | Remove module | | `rmmod module_name` |
 | `modinfo` | Module information | | `modinfo module_name` |
 
+## DevOps Concepts
+| Concept | Description | Useful Command |
+|---------|-------------|----------------|
+| `namespaces` | Kernel resource isolation used by containers | `lsns` |
+| `cgroups` | Resource limits for process groups (CPU/memory/I/O) | `systemd-cgtop` |
+| zombie process | Completed child process still in process table | `ps -eo pid,ppid,state,cmd | grep ' Z'` |
+| kernel release | Running kernel version | `uname -r` |
+| bash init files | `.bash_profile` for login shells, `.bashrc` for interactive shells | `echo 'source ~/.bashrc' >> ~/.bash_profile` |
+
 ## Performance Tuning
 | Command | Description | Common Options | Example |
 |---------|-------------|----------------|---------|
