@@ -213,23 +213,58 @@ ssh user@server  # Should connect without password
 | `&>` | Redirect both | `cmd &> output.log` |
 | `\|` | Pipe | `cmd1 \| cmd2` |
 
-## Common Port Numbers
-| Port | Service | Protocol |
-|------|---------|----------|
-| 20/21 | FTP | TCP |
-| 22 | SSH | TCP |
-| 23 | Telnet | TCP |
-| 25 | SMTP | TCP |
-| 53 | DNS | UDP/TCP |
-| 80 | HTTP | TCP |
-| 110 | POP3 | TCP |
-| 143 | IMAP | TCP |
-| 443 | HTTPS | TCP |
-| 993 | IMAPS | TCP |
-| 995 | POP3S | TCP |
-| 3306 | MySQL | TCP |
-| 5432 | PostgreSQL | TCP |
-| 6379 | Redis | TCP |
+## System Administration
+| Command | Description | Common Options | Example |
+|---------|-------------|----------------|---------|
+| `shutdown` | Shutdown system | `-h` (halt), `-r` (reboot), `+5` (in 5 min) | `shutdown -h now` |
+| `reboot` | Reboot system | | `reboot` |
+| `halt` | Halt system | | `halt` |
+| `poweroff` | Power off system | | `poweroff` |
+| `init` | Change runlevel | `0` (halt), `6` (reboot) | `init 6` |
+| `telinit` | Change runlevel | Same as init | `telinit 3` |
+| `runlevel` | Show current runlevel | | `runlevel` |
+
+## Advanced Monitoring
+| Command | Description | Common Options | Example |
+|---------|-------------|----------------|---------|
+| `iotop` | I/O monitoring | `-o` (only active), `-b` (batch) | `iotop -o` |
+| `ncdu` | Disk usage analyzer | | `ncdu /` |
+| `strace` | System call tracer | `-p PID` (attach), `-e trace=network` | `strace -p 1234` |
+| `ltrace` | Library call tracer | `-p PID` | `ltrace -p 1234` |
+| `tcpdump` | Network packet analyzer | `-i eth0` (interface), `-w file.pcap` | `tcpdump -i eth0 port 80` |
+
+## Backup & Recovery
+| Command | Description | Common Options | Example |
+|---------|-------------|----------------|---------|
+| `rsync` | Advanced file sync | `-a` (archive), `-z` (compress), `--delete` | `rsync -avz src/ dest/` |
+| `dd` | Low-level copy | `if=` (input), `of=` (output), `bs=` (block size) | `dd if=/dev/sda of=/dev/sdb bs=1M` |
+| `dump` | Filesystem backup | `-0` (full), `-u` (update) | `dump -0uf /dev/sda1 /backup` |
+| `restore` | Restore from dump | `-r` (restore), `-i` (interactive) | `restore -rf /dev/sda1` |
+
+## Log Management
+| Command | Description | Common Options | Example |
+|---------|-------------|----------------|---------|
+| `logrotate` | Rotate log files | `-f` (force), `-v` (verbose) | `logrotate -f /etc/logrotate.conf` |
+| `logger` | Add to syslog | `-p` (priority), `-t` (tag) | `logger -p info "Custom message"` |
+| `journalctl` | Systemd logs | `-u service` (unit), `-f` (follow) | `journalctl -u apache2 -f` |
+
+## Kernel & Modules
+| Command | Description | Common Options | Example |
+|---------|-------------|----------------|---------|
+| `lsmod` | List kernel modules | | `lsmod` |
+| `modprobe` | Load/unload modules | `-r` (remove) | `modprobe -r module_name` |
+| `insmod` | Insert module | | `insmod /path/to/module.ko` |
+| `rmmod` | Remove module | | `rmmod module_name` |
+| `modinfo` | Module information | | `modinfo module_name` |
+
+## Performance Tuning
+| Command | Description | Common Options | Example |
+|---------|-------------|----------------|---------|
+| `sysctl` | Kernel parameters | `-a` (all), `-w` (write) | `sysctl -w net.ipv4.ip_forward=1` |
+| `ulimit` | User limits | `-a` (all), `-n` (files) | `ulimit -n 1024` |
+| `nice` | Process priority | `-n value` | `nice -n -10 command` |
+| `chrt` | CPU scheduling | `--rr` (round-robin), `--fifo` | `chrt --rr 50 command` |
+| `taskset` | CPU affinity | `-c` (cores), `-p` (PID) | `taskset -c 0-3 command`
 | `id` | User info | `id` |
 | `uptime` | System uptime | `uptime` |
 | `free` | Memory info | `free -h` |

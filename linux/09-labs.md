@@ -175,3 +175,40 @@
 3. Check SSH server config: `sudo nano /etc/ssh/sshd_config`
 4. View current SSH settings: `sudo sshd -T | grep -E "(passwordauth|pubkeyauth|port)"`
 5. Create backup of config: `sudo cp /etc/ssh/sshd_config /etc/ssh/sshd_config.backup`
+
+## Lab 19: System Administration
+1. Check current runlevel: `runlevel`
+2. View system uptime: `uptime`
+3. Check system logs: `journalctl --since "1 hour ago" | tail`
+4. Schedule a command: `echo "echo 'Hello from cron'" | at now + 1 minute`
+5. Check scheduled jobs: `atq`
+
+## Lab 20: Kernel Modules and Parameters
+1. List loaded modules: `lsmod | head -10`
+2. Get module info: `modinfo ext4` (or any loaded module)
+3. Check kernel parameters: `sysctl -a | grep vm | head`
+4. Modify parameter temporarily: `sudo sysctl -w vm.swappiness=10`
+5. Check current value: `sysctl vm.swappiness`
+
+## Lab 21: Advanced Monitoring
+1. Install monitoring tools: `sudo apt install iotop ncdu`
+2. Monitor I/O: `sudo iotop -o -b -n 3` (3 iterations)
+3. Analyze disk usage: `ncdu /tmp` (navigate with arrows, q to quit)
+4. Trace system calls: `strace -c -p 1` (trace init process briefly)
+5. Check open files: `lsof -u $USER | head`
+
+## Lab 22: Backup and Recovery
+1. Create test directory: `mkdir backup-lab && cd backup-lab`
+2. Create test files: `echo "file1" > file1.txt && echo "file2" > file2.txt`
+3. Rsync to backup: `rsync -av . ../backup-dest/`
+4. Modify original: `echo "modified" >> file1.txt`
+5. Rsync incremental: `rsync -av --delete . ../backup-dest/`
+6. Verify backup: `diff -r . ../backup-dest/`
+
+## Lab 23: Performance Tuning
+1. Check current limits: `ulimit -a`
+2. Set file limit: `ulimit -n 1024`
+3. Run with low priority: `nice -n 19 sleep 10 &`
+4. Check process priority: `ps -o pid,ni,cmd -p $!`
+5. Test CPU affinity: `taskset -c 0 sleep 5 &`
+6. Monitor with top: `top -b -n 1 | head -20`

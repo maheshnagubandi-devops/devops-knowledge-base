@@ -42,12 +42,75 @@
 4. Check system load?
    - `uptime`, `top`
 
-## Networking
-1. Test connectivity?
-   - `ping host`
+## System Administration
+1. How to shutdown/reboot system?
+   - `shutdown -h now` (halt), `shutdown -r now` (reboot), `reboot`, `halt`
 
-2. Check listening ports?
-   - `netstat -tuln`, `ss -tuln`
+2. What is runlevel?
+   - System state defining services (0=halt, 1=single-user, 3=multi-user, 5=GUI, 6=reboot)
+
+3. How to change runlevel?
+   - `init` or `telinit` command (older systems), `systemctl isolate` (systemd)
+
+4. What is systemd?
+   - Modern init system and service manager, replaces SysV init
+
+5. Kernel module commands?
+   - `lsmod` (list), `modprobe` (load/unload), `insmod` (insert), `rmmod` (remove)
+
+6. How to tune kernel parameters?
+   - `sysctl -w parameter=value`, edit `/etc/sysctl.conf`
+
+7. Process priority commands?
+   - `nice` (start with priority), `renice` (change running), `chrt` (scheduling policy)
+
+8. CPU affinity?
+   - `taskset` to bind processes to specific CPU cores
+
+## Advanced Monitoring
+1. I/O monitoring tools?
+   - `iotop` (interactive), `iostat` (stats), `blktrace` (detailed tracing)
+
+2. System call tracing?
+   - `strace` (system calls), `ltrace` (library calls)
+
+3. Network packet analysis?
+   - `tcpdump` (command line), `wireshark` (GUI)
+
+4. Disk usage analysis?
+   - `du` (basic), `ncdu` (interactive), `find` with size options
+
+## Backup & Recovery
+1. Advanced rsync usage?
+   - `rsync -avz --delete --exclude` for incremental backups
+
+2. Low-level copying?
+   - `dd if=input of=output bs=blocksize` for disks/images
+
+3. Filesystem backup?
+   - `dump` (ext2/ext3/ext4), `xfsdump` (XFS), `btrfs send` (Btrfs)
+
+4. Log rotation?
+   - `logrotate` configuration in `/etc/logrotate.d/`
+
+## Security
+1. Firewall types?
+   - Packet filtering, stateful inspection, proxy, next-gen firewalls
+
+2. UFW vs iptables?
+   - UFW is frontend for iptables, easier to use
+
+3. SELinux/AppArmor?
+   - Mandatory access control, SELinux (RedHat), AppArmor (Ubuntu)
+
+4. SSH security best practices?
+   - Disable root login, use key auth, non-standard ports, fail2ban
+
+5. What is chroot?
+   - Change root directory for process isolation
+
+6. How to check file integrity?
+   - `md5sum`, `sha256sum` commands
 
 3. Configure IP?
    - `ifconfig eth0 192.168.1.100`
