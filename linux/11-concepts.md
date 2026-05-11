@@ -50,8 +50,19 @@
   ```
 - DevOps use case: put environment setup in `.bash_profile` and interactive shell settings in `.bashrc` to avoid duplicate configuration.
 
+## Text Editors: `vi`, `vim`, `nano`
+- `vi` is the traditional Unix text editor; `vim` is its enhanced modern version with extra editing features.
+- `nano` is a beginner-friendly terminal editor with visible commands and simple keyboard shortcuts.
+- Common interview points:
+  - `vi`/`vim` modes: normal, insert, visual, command.
+  - Save and quit: `:wq`, `:q!`, `:x`.
+  - Search and replace: `:%s/old/new/g`.
+  - Open files: `vi file`, `vim file`, `nano file`.
+- DevOps use case: command-line editing on remote servers, quick file changes during troubleshooting, and editing config files without a GUI.
+
 ## Filesystem Hierarchy
 - The **root directory** `/` is the top of the Linux filesystem tree.
+- The tree structure is hierarchical: every directory can contain files and nested directories, forming a single unified namespace.
 - Common top-level directories:
   - `/bin`: Essential user binaries needed in single-user mode and for all users.
   - `/sbin`: System binaries for administration, such as `fsck`, `ifconfig`, `iptables`.
@@ -68,4 +79,36 @@
   - `/dev`: Device files representing hardware and pseudo-devices.
   - `/proc`: Virtual filesystem for kernel and process information.
   - `/sys`: Virtual sysfs filesystem for kernel objects and device info.
+- Useful commands for viewing the tree structure:
+  - `tree /path` (if installed)
+  - `find /path -maxdepth 2 -print`
+  - `ls -R /path`
 - DevOps use case: understanding this layout helps when troubleshooting configuration, logs, packages, and system services.
+
+## Permissions and `chmod`
+- `chmod` changes file and directory permissions.
+- Common modes:
+  - `chmod 755 file` sets permissions to `rwxr-xr-x` for owner/group/others.
+  - `chmod 644 file` sets `rw-r--r--` for a configuration or log file.
+- Symbolic mode examples:
+  - `chmod u=rwx file` sets the user permissions exactly to `rwx`.
+  - `chmod u+rwx file` adds read, write, and execute to the current user permissions.
+  - `chmod g-w file` removes write permission from the group.
+- Binary permission values:
+  - `r` = 4, `w` = 2, `x` = 1.
+  - `rw-` = 6, `r-x` = 5, `r--` = 4.
+- Use `chmod -R` for recursive permission changes: `chmod -R 755 /path`.
+- Verify with `ls -l` to see the permission string and owner/group.
+- DevOps use case: `chmod` is essential when securing files, enabling scripts, and enforcing deployment permissions.
+
+## Default Permissions and umask
+- Linux applies default permissions when new files and directories are created.
+- Default mode before umask is usually `666` for files and `777` for directories.
+- The **umask** subtracts permissions from that default.
+  - `umask 022` results in `644` for files and `755` for directories.
+  - `umask 002` results in `664` for files and `775` for directories.
+- Use `umask` to view the current mask and `umask 022` to set a common default for secure multi-user systems.
+- Example:
+  - New file created with `touch file.txt` and `umask 022` becomes `rw-r--r--`.
+  - New directory created with `mkdir dir` and `umask 022` becomes `rwxr-xr-x`.
+- DevOps use case: `umask` is important when provisioning hosts, configuring user environments, and ensuring default permissions are secure and predictable.

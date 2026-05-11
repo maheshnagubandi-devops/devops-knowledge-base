@@ -162,11 +162,25 @@ passwd username
 ## Permissions & Ownership
 | Command | Description | Common Options | Example |
 |---------|-------------|----------------|---------|
-| `chmod` | Change permissions | `755` (octal), `u+x` (symbolic), `-R` (recursive) | `chmod -R 755 dir/` |
+| `chmod` | Change permissions | `755` (octal), `u+x` / `u=rwx` / `u+rwx` (symbolic), `-R` (recursive) | `chmod -R 755 dir/` |
 | `chown` | Change owner | `user:group`, `-R` (recursive) | `chown -R user:group file` |
 | `chgrp` | Change group | `-R` (recursive) | `chgrp developers file` |
 | `umask` | Set default permissions | `022` (default) | `umask 002` |
 | `ls -l` | View permissions | Shows rwx for user/group/other | `ls -ld dir/` |
+
+> **Quick interview tip:** `u=rwx` sets the user permissions exactly to `rwx`, while `u+rwx` adds those permissions to the current user permission set.
+
+### chmod permission formats
+- **Octal mode** uses three or four digits: owner/group/other, each from 0-7.
+  - `7` = `rwx`, `6` = `rw-`, `5` = `r-x`, `4` = `r--`
+  - Example: `chmod 755 dir` sets `rwxr-xr-x`.
+- **Symbolic mode** uses letters and operators:
+  - `u` = owner, `g` = group, `o` = others, `a` = all
+  - `+` adds permission, `-` removes, `=` sets exact permissions
+  - Example: `chmod u=rwx,g=rx,o=r file.txt`
+- **Binary concepts** for chmod:
+  - `r` = 4, `w` = 2, `x` = 1
+  - Add values to build octal digits: `rw-` = 6, `r-x` = 5.
 
 ## Process Management
 | Command | Description | Common Options | Example |

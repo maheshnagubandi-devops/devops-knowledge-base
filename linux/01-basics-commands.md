@@ -142,6 +142,33 @@
 - `V`: Visual line mode (line selection)
 - `Ctrl+v`: Visual block mode (column selection)
 
+### Editing Commands
+- `x`: Delete character under cursor
+- `dd`: Delete current line
+- `yy`: Yank (copy) current line
+- `p`: Paste after cursor
+- `u`: Undo last change
+- `Ctrl+r`: Redo
+- `r<char>`: Replace character under cursor with `<char>`
+- `cw`: Change word
+- `cc`: Change entire line
+
+### Search and Replace
+- `/<pattern>`: Search forward for pattern
+- `?pattern`: Search backward for pattern
+- `n`: Repeat search forward
+- `N`: Repeat search backward
+- `:%s/old/new/g`: Replace all occurrences in file
+- `:%s/old/new/gc`: Replace all with confirmation
+
+### Save and Quit
+- `:w`: Save file
+- `:q`: Quit if no changes
+- `:wq`: Save and quit
+- `:x`: Save and quit (if changed)
+- `:q!`: Quit without saving changes
+- `:w filename`: Save as new filename
+
 ### Navigation
 - `h/j/k/l`: Left/down/up/right
 - `w`: Next word start
