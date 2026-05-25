@@ -46,8 +46,10 @@
 
 ## Finding Files
 - `find path -name pattern`: Find by name
+- `find path -iname pattern`: Find by name -case insensitive
 - `find . -type f`: Files only
 - `find . -type d`: Directories only
+- `find . -type l`:  symboliclink 
 - `find . -empty`: Empty files/dirs
 - `find . -mtime +days`: Modified > days ago
 - `find . -mtime -days`: Modified < days ago
@@ -56,6 +58,9 @@
 - `find . -perm permissions`: Specific permissions
 - `find . -user username`: Owned by user
 - `find . -exec cmd {} \;`: Execute command on results
+- other options includes
+    -atime:for acesstimestamp, last time when file was acccessed
+     -ctime: change timestamp/when filedata was changed
 
 ## Locating Files
 - `locate pattern`: Search database
