@@ -1881,12 +1881,23 @@ COPY . /app
 ENTRYPOINT ["npm"]
 CMD ["start"]</pre>
             </div>
+            <div style="margin-bottom:12px;"><strong>Program 6</strong> — php app
+            <pre class="dockerfile">FROM php:8.2-apache
+RUN docker-php-ext-install mysqli pdo pdo_mysql
+RUN a2enmod rewrite
+COPY . /var/www/html
+WORKDIR /var/www/html
+RUN chown -R www-data:www-data . /var/www/html
+EXPOSE 80
+CMD ["apache2-foreground"]</pre>
+            </div>
+            
           </div>
           </div>   
           </div> 
           </div> 
       <div class="card">      
-          <div style="margin-bottom:12px;"><strong>Program 6</strong> — Tomcat with WAR
+          <div style="margin-bottom:12px;"><strong>Program 7</strong> — Tomcat with WAR
             <pre class="dockerfile">FROM ubuntu
 RUN apt-get -y update &amp;&amp; \
     apt-get -y install wget openjdk-8-jdk zip unzip
@@ -1901,7 +1912,7 @@ EXPOSE 8080
 CMD ["/tomcat/apache-tomcat-10.0.27/bin/catalina.sh", "run"]</pre>
             <div style="font-size:9px;color:#4a5260;margin-top:4px">Note: .war file should exist in the build context before copying.</div>
           
-          <div style="margin-bottom:12px;"><strong>Program 7</strong> <strong> — Multistage build sample</strong> — Java app
+          <div style="margin-bottom:12px;"><strong>Program 8</strong> <strong> — Multistage build sample</strong> — Java app
             <pre class="dockerfile">FROM maven:3.6-jdk-8-alpine AS builder
 WORKDIR /app
 COPY pom.xml .
@@ -1912,7 +1923,7 @@ FROM openjdk:8-jre-alpine
 COPY --from=builder /app/target/app.jar /app.jar
 CMD ["java", "-jar", "/app.jar"]</pre>
           </div>
-          <div style="margin-bottom:12px;"><strong>Program 8</strong> <strong> — Multistage build sample</strong> — Node + Nginx
+          <div style="margin-bottom:12px;"><strong>Program 9</strong> <strong> — Multistage build sample</strong> — Node + Nginx
             <pre class="dockerfile">FROM node:20-alpine AS build
 WORKDIR /app
 COPY package*.json ./
@@ -1925,7 +1936,7 @@ EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]</pre>
           </div>
         </div>
-        <div style="margin-bottom:12px;"><strong>Program 9</strong> <strong> — Multistage build sample</strong> — Node + Nginx
+        <div style="margin-bottom:12px;"><strong>Program 10</strong> <strong> — Multistage build sample</strong> — Node + Nginx
         <div style="font-size:10px;line-height:1.5;color:#1a1f26;font-weight:600">
         <pre class="dockerfile">FROM node:20-alpine AS build
 WORKDIR /app
@@ -1943,7 +1954,7 @@ CMD ["nginx", "-g", "daemon off;"]</pre>
   </div>
     <div class="card"> 
         <div style="grid-column:1 / -1;display:grid;gap:10px">
-          <div style="margin-bottom:12px;"><strong>Program 10</strong> <strong> — Compose sample</strong> — SonarQube + Postgres
+          <div style="margin-bottom:12px;"><strong>Program 11</strong> <strong> — Compose sample</strong> — SonarQube + Postgres
             <pre class="dockerfile">version: "3"
 services:
   sonarqube:
