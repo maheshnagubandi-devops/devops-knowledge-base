@@ -1836,9 +1836,9 @@
         
       </div>
     </div>
+    <div class="card-title"><span style="display:inline-flex;align-items:center;vertical-align:middle;margin-right:6px;color:#7c3aed"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 4h14v16H5z" stroke="currentColor" stroke-width="2" fill="none"/><path d="M9 8h6M9 12h6M9 16h4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span><span style="color:#7c3aed;font-weight:700">Sample Dockerfile Programs</span></div>
     <div class="grid cols-3" style="margin-top:10px">
       <div class="card">
-      <div class="card-title"><span style="display:inline-flex;align-items:center;vertical-align:middle;margin-right:6px;color:#7c3aed"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 4h14v16H5z" stroke="currentColor" stroke-width="2" fill="none"/><path d="M9 8h6M9 12h6M9 16h4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span><span style="color:#7c3aed;font-weight:700">Sample Dockerfile Programs</span></div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;font-size:10px;line-height:1.5;color:#1a1f26;font-weight:600">
         <div>
           <div style="margin-bottom:12px;"><strong>Program 1</strong> — Ubuntu + Apache
@@ -1883,11 +1883,13 @@ CMD ["start"]</pre>
             </div>
             <div style="margin-bottom:12px;"><strong>Program 6</strong> — php app
             <pre class="dockerfile">FROM php:8.2-apache
-RUN docker-php-ext-install mysqli pdo pdo_mysql
+RUN docker-php-ext-install \
+      mysqli pdo pdo_mysql
 RUN a2enmod rewrite
 COPY . /var/www/html
 WORKDIR /var/www/html
-RUN chown -R www-data:www-data . /var/www/html
+RUN chown -R www-data:www-data . \
+      /var/www/html
 EXPOSE 80
 CMD ["apache2-foreground"]</pre>
             </div>
