@@ -35,6 +35,14 @@ jobs:
         with:
           source: ./docs/
           destination: ./_site
+      - name: Prepare site
+        run: |
+          mkdir -p _site
+          cp docs/index.html _site/
+          cp -r docker _site/
+          cp -r linux _site/
+          cp -r jenkins _site/
+          cp -r kubernetes _site/
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
 
