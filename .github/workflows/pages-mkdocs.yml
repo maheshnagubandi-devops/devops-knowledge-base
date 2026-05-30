@@ -25,17 +25,33 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
+      - name: Install Pandoc
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y pandoc
+
       - name: Prepare site
         run: |
-          mkdir site
-
-          cp docs/index.html site/
-
-          cp -r linux site/
-          cp -r docker site/
-          cp -r kubernetes site/
-          cp -r jenkins site/
-          cp -r aws site/
+         mkdir -p site
+         cp docs/index.html site/
+         for dir in linux docker kubernetes jenkins aws
+         do
+          if [ -d "$dir" ]; then
+           mkdir -p site/$dir
+           # Convert markdown files to HTML
+           find $dir -name "*.md" | while read file
+           do
+            output=$(basename "$file" .md).html
+            
+            pandoc "$file" \
+             -s \
+             -o "site/$dir/$output"
+             done
+             
+             # Copy existing HTML files
+             find $dir -name "*.html" -exec cp {} site/$dir/ \;
+          fi
+          done
 
       - name: Upload Pages Artifact
         uses: actions/upload-pages-artifact@v3
