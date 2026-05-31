@@ -480,6 +480,150 @@ second_biggest=$(printf "%s\n" "${numbers[@]}" | sort -rn | sed -n '2p')
 echo "Second biggest: $second_biggest"
 ```
 
+## 37. `function_example.sh`
+```bash
+#!/bin/bash
+
+greet() {
+  local name="$1"
+  echo "Hello, $name"
+}
+
+greet "Mahesh"
+```
+
+## 38. `arrays_example.sh`
+```bash
+#!/bin/bash
+
+arr=(alpha beta gamma)
+echo "First: ${arr[0]}"
+for i in "${arr[@]}"; do
+  echo "item: $i"
+done
+
+declare -A users
+users[alice]=1001
+users[bob]=1002
+echo "alice uid: ${users[alice]}"
+```
+
+## 39. `case_example.sh`
+```bash
+#!/bin/bash
+
+case "$1" in
+  start) echo "starting" ;;
+  stop) echo "stopping" ;;
+  *) echo "usage: $0 start|stop" ;;
+esac
+```
+
+## 40. `param_expansion.sh`
+# → Remove shortest match
+## → Remove longest matching pattern from the beginning (left side) of the string.
+##*/ -->match everything upto last /
+```bash
+#!/bin/bash
+
+name=""
+echo "${name:-Guest}"
+path="/home/user/docs/file.txt"
+echo "${path##*/}"   # file.txt
+```
+
+## 41. `heredoc_example.sh`
+Read all lines until another EOF is found. Pass those lines as standard input to cat.
+```bash
+#!/bin/bash
+
+cat <<EOF > /tmp/greeting.txt
+Hello from heredoc
+Generated at $(date)
+EOF
+```
+
+## 42. `redirection_example.sh`
+```bash
+#!/bin/bash
+
+echo "stdout" > /tmp/out.txt
+echo "stderr" 1>&2
+ls /nonexistent 2> /tmp/err.txt || true
+```
+
+## 43. `getopts_example.sh`
+```bash
+#!/bin/bash
+
+while getopts ":f:n:" opt; do
+  case $opt in
+    f) file="$OPTARG" ;;
+    n) name="$OPTARG" ;;
+    \?) echo "Invalid option -$OPTARG" ;;
+  esac
+done
+
+echo "file=$file name=$name"
+```
+
+## 44. `trap_example.sh`
+trap 'commands' SIGNAL
+ex:trap 'docker rm -f test-container' EXIT
+ex:kubectl port-forward svc/myapp 8080:80 & PID=$! &
+trap 'kill $PID' EXIT
+```bash
+#!/bin/bash
+
+trap 'echo "Cleanup..."; rm -f /tmp/mytmpfile' EXIT INT TERM
+touch /tmp/mytmpfile
+echo "Doing work..."
+sleep 1
+```
+
+## 45. `arithmetic_example.sh`
+```bash
+#!/bin/bash
+
+a=5
+((a+=10))
+echo "$a"
+sum=$(( 3 + 4 * 2 ))
+echo "$sum"
+```
+
+## 46. `regex_example.sh`
+```bash
+#!/bin/bash
+
+str="$1"
+if [[ $str =~ ^[0-9]+$ ]]; then
+  echo "numeric"
+else
+  echo "not numeric"
+fi
+```
+
+## 47. `subshell_vs_source.sh`
+```bash
+#!/bin/bash
+
+echo "PWD before: $(pwd)"
+( cd /tmp; echo "in subshell: $(pwd)" )
+echo "PWD after subshell: $(pwd)"
+
+# source example (changes current shell)
+# . ./change_dir.sh
+```
+
+## 48. `export_example.sh`
+```bash
+#!/bin/bash
+
+export MYVAR="hello"
+bash -c 'echo "$MYVAR"'   # inherited by child process
+```
+
 ## 37. `digit_num.sh`
 ```bash
 #!/bin/bash

@@ -1,3 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Shell Scripting Cheatsheet — Preview</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    body{font-family:Inter,system-ui,Segoe UI,Arial,Helvetica,sans-serif;background:#f8fafc;color:#0f172a;margin:0}
+    .wrap{max-width:980px;margin:28px auto;padding:24px;background:#fff;border-radius:14px;box-shadow:0 20px 40px rgba(2,6,23,.08)}
+    h1{font-size:26px;margin:0 0 8px}
+    .meta{color:#475569;margin-bottom:18px}
+    pre{background:#0f172a;color:#f8fafc;padding:14px;border-radius:8px;overflow:auto}
+    code{background:#eef2ff;padding:2px 6px;border-radius:6px}
+    table{border-collapse:collapse;width:100%}
+    table th,table td{border:1px solid #e2e8f0;padding:8px;text-align:left}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Shell Scripting Cheatsheet — Preview</h1>
+    <div class="meta">This preview renders the repository's `shell-scripting/cheat-sheet.md` for quick review.</div>
+    <div id="content">Rendering…</div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script id="md" type="text/plain">
 # Shell Scripting Cheatsheet
 
 ## 1. Create and run a shell script
@@ -328,64 +355,16 @@ grep pattern <<< "$string"
 
 ## 15. Redirection, pipes, and command substitution
 
-### Standard streams (file descriptors)
-
-- **stdin (FD 0)**: Standard input from keyboard or file.
-- **stdout (FD 1)**: Standard output (command results).
-- **stderr (FD 2)**: Standard error (error messages).
-
-### Redirection operators
-
-| Operator | Meaning |
-|---|---|
-| `>` | Redirect stdout (FD 1) — overwrite file |
-| `>>` | Redirect stdout — append to file |
-| `2>` | Redirect stderr (FD 2) — overwrite file |
-| `2>>` | Redirect stderr — append to file |
-| `&>` | Redirect both stdout and stderr (bash only) |
-| `2>&1` | Redirect stderr to wherever stdout is going |
-| `1>&2` | Redirect stdout to stderr |
-
-### Examples
-
 ```bash
 cmd > out.txt        # stdout to file (overwrite)
-cmd >> out.txt       # stdout append to file
-cmd 2> err.txt       # stderr to file
-cmd 2>> err.txt      # stderr append to file
+cmd >> out.txt       # append
+cmd 2> err.txt       # stderr
 cmd &> all.txt       # both stdout and stderr (bash)
-cmd 2>&1             # stderr to same place as stdout
-cmd 1>&2             # stdout to stderr
 cmd | othercmd       # pipe stdout to next command
-var=$(cmd)           # capture stdout output
+var=$(cmd)           # capture output
 ```
 
-### Append vs redirect
-
-- `>` **overwrites** the file (discards existing content).
-- `>>` **appends** to the file (preserves existing content).
-- Same applies to `2>` and `2>>` for error output.
-
-### Ignoring command failures with `|| true`
-
-`|| true` is commonly used in shell scripts and CI/CD pipelines to ignore a command failure and continue execution:
-
-```bash
-cmd_that_might_fail || true
-echo "Script continues even if cmd_that_might_fail fails"
-```
-
-This is useful when a command failure is acceptable (e.g., trying to remove a non-existent file):
-```bash
-rm /tmp/optional-file 2>/dev/null || true
-```
-
-### Using `tee` to write and view simultaneously
-
-```bash
-cmd | tee file.txt   # write to file AND display output
-cmd | tee -a file.txt # append to file AND display output
-```
+Use `tee` to write and view simultaneously: `cmd | tee file.txt`
 
 ---
 
@@ -473,4 +452,13 @@ export VAR=value
 ```
 
 Use `env` or `printenv` to verify exported variables.
+
  
+  </script>
+  <script>
+    // Insert markdown content (placeholder will be replaced by file content)
+    const md = document.getElementById('md').textContent;
+    document.getElementById('content').innerHTML = marked.parse(md);
+  </script>
+</body>
+</html>
