@@ -34,7 +34,7 @@ jobs:
         run: |
          mkdir -p site
          cp docs/index.html site/
-         for dir in linux docker kubernetes jenkins aws
+         for dir in linux docker kubernetes jenkins aws shell-scripting
          do
           if [ -d "$dir" ]; then
            mkdir -p site/$dir
