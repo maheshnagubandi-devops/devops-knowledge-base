@@ -34,6 +34,8 @@ jobs:
         run: |
           mkdir -p site
           cp docs/index.html site/
+          # Copy handcrafted HTML files from docs/
+          cp docs/shell-scripting-cheatsheet.html site/ || true
           # Use helper script to convert markdown cheatsheets into templated HTML
           chmod +x scripts/generate_cheatsheets.sh
           ./scripts/generate_cheatsheets.sh . site

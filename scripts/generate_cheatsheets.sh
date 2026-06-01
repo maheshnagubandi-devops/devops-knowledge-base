@@ -16,7 +16,7 @@ fi
 
 mkdir -p "$OUT_DIR"
 
-for md in $(find "$SRC_DIR" -maxdepth 2 -name "cheat-sheet.md" -o -name "*-cheatsheet.md" -o -name "cheat-sheet*.md" 2>/dev/null); do
+for md in $(find "$SRC_DIR" -maxdepth 2 \( -name "cheat-sheet.md" -o -name "*-cheatsheet.md" -o -name "cheat-sheet*.md" -o -name "*-questions.md" -o -name "programs.md" \) 2>/dev/null); do
   rel_dir=$(dirname "$md")
   out_subdir="$OUT_DIR/$rel_dir"
   mkdir -p "$out_subdir"
