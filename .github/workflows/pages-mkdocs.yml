@@ -30,28 +30,15 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y pandoc
 
-      - name: Prepare site
+      - name: Prepare site (templated conversion)
         run: |
-         mkdir -p site
-         cp docs/index.html site/
-         for dir in linux docker kubernetes jenkins aws shell-scripting
-         do
-          if [ -d "$dir" ]; then
-           mkdir -p site/$dir
-           # Convert markdown files to HTML
-           find $dir -name "*.md" | while read file
-           do
-            output=$(basename "$file" .md).html
-            
-            pandoc "$file" \
-             -s \
-             -o "site/$dir/$output"
-             done
-             
-             # Copy existing HTML files
-             find $dir -name "*.html" -exec cp {} site/$dir/ \;
-          fi
-          done
+          mkdir -p site
+          cp docs/index.html site/
+          # Use helper script to convert markdown cheatsheets into templated HTML
+          chmod +x scripts/generate_cheatsheets.sh
+          ./scripts/generate_cheatsheets.sh . site
+          # Copy any existing HTML files (other resources)
+          find . -path './docs' -prune -o -name '*.html' -not -path './docs/*' -exec cp --parents {} site/ \; || true
 
       - name: Upload Pages Artifact
         uses: actions/upload-pages-artifact@v3

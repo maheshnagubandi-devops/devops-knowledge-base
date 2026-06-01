@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shell Scripting Cheatsheet — DevOps Quick Reference</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Syne:wght@400;600;700;800&display=swap');
+
+  :root {
+    --bg: #ffffff;
+    --bg2: #f6f8fa;
+    --bg3: #eef1f5;
+    --border: #d0d7de;
+    --border2: #b0b8c4;
+    --blue: #0969da;
+    --blue-dim: #0550ae;
+    --blue-bg: #dbeafe;
+    --green: #1a7f37;
+    --green-bg: #dcfce7;
+    --orange: #bc4c00;
+    --orange-bg: #fff1e5;
+    --red: #cf222e;
+    --red-bg: #ffdce0;
+    --mono: 'JetBrains Mono', monospace;
+    --head: 'Syne', sans-serif;
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  body {
+    background: #ffffff;
+    color: #1a1f26;
+    font-family: var(--mono);
+    font-size: 9px;
+    line-height: 1.3;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+
+  .page {
+    width: 297mm;
+    height: auto;
+    margin: 0 auto 14px;
+    background: #ffffff;
+    padding: 6px 6px;
+    border: 1px solid var(--border);
+    position: relative;
+    overflow: visible;
+    page-break-after: always;
+  }
+  
+  @media screen {
+    .page {
+      width: 297mm;
+      padding: 12px 16px;
+    }
+  }
+  
+  @media print {
+    body { margin: 0; padding: 0; }
+    .page { 
+      width: 297mm;
+      margin: 0;
+      padding: 8px 8px;
+      border: none;
+      page-break-after: always;
+    }
+  }
+
+  .page::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(var(--border) 0.5px, transparent 0.5px),
+      linear-gradient(90deg, var(--border) 0.5px, transparent 0.5px);
+    background-size: 28px 28px;
+    opacity: 0.1;
+    pointer-events: none;
+  }
+
+  .page-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1.5px solid var(--blue-dim);
+    padding-bottom: 8px;
+    margin-bottom: 10px;
+    position: relative;
+    z-index: 1;
+    min-height: 40px;
+  }
+  
+  .page-header-left { display: flex; align-items: center; gap: 8px; }
+  .logo {
+    width: 28px; height: 28px;
+    background: var(--blue-bg);
+    border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px;
+  }
+  
+  .page-title {
+    font-family: var(--head);
+    font-size: 16px;
+    font-weight: 800;
+    color: #1f2328;
+    letter-spacing: -0.5px;
+    margin-bottom: 0px;
+  }
+  
+  .page-subtitle {
+    font-size: 9px;
+    color:#1a1f26;
+    margin-top: 1px;
+  }
+  
+  .page-meta {
+    text-align: right;
+    font-size: 8px;
+    color:#4a5260;
+    line-height: 1.4;
+  }
+  
+  .page-num {
+    position: absolute;
+    bottom: 4px; right: 8px;
+    font-size: 8px;
+    color:#4a5260;
+    z-index: 1;
+  }
+
+  .page-footer{position:fixed;left:6px;right:6px;bottom:6px;font-size:8px;color:#556;display:flex;justify-content:space-between}
+  .page-footer .credit{font-weight:700}
+
+  .grid { display: grid; gap: 4px; position: relative; z-index: 1; }
+  .cols-3 { grid-template-columns: 1fr 1fr 1fr; }
+  .cols-2 { grid-template-columns: 1fr 1fr; }
+  .cols-2-1 { grid-template-columns: 2fr 1fr; }
+
+  .card {
+    background: var(--bg2);
+    border: 0.5px solid var(--border);
+    border-radius: 6px;
+    padding: 4px 6px;
+    overflow: visible;
+  }
+  
+  .card-title {
+    font-family: var(--head);
+    font-size: 10px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    color: #0f1720;
+  }
+  
+  .dot {
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .dot-blue { background: var(--blue); }
+  .dot-green { background: var(--green); }
+  .dot-orange { background: var(--orange); }
+
+  .cmd-table { width: 100%; border-collapse: collapse; table-layout: fixed; }
+  .cmd-table tr + tr td { border-top: 0.5px solid var(--border); }
+  .cmd-table td { padding: 3px 2px; vertical-align: top; line-height: 1.35; }
+  .cmd-table td:first-child {
+    padding-right: 6px;
+    white-space: normal;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    width: 50%;
+    font-weight: 600;
+  }
+  .cmd-table td:last-child {
+    width: 50%;
+    color: #2d333b;
+    font-size: 9px;
+    padding-left: 4px;
+    border-left: 1px solid #d0d7de;
+    line-height: 1.35;
+  }
+  
+  code {
+    background: #e8edf2;
+    color: #0550ae;
+    padding: 1px 4px;
+    border-radius: 3px;
+    font-family: var(--mono);
+    font-size: 9px;
+    white-space: nowrap;
+    border: 0.5px solid #c8d1da;
+  }
+  
+  code.green { color: #1a7f37; }
+  code.orange { color: #bc4c00; }
+
+  .desc { color: #2d333b; font-size: 9px; font-weight: 500; }
+  .subdesc { color: #57606a; font-size: 8px; display: block; margin-top: 1px; font-weight:400; }
+
+  .section-title {
+    font-family: var(--head);
+    font-size: 12px;
+    font-weight: 800;
+    color: var(--blue);
+    margin-top: 4px;
+    margin-bottom: 3px;
+    border-bottom: 1px solid var(--blue-bg);
+    padding-bottom: 2px;
+  }
+
+  ul { margin-left: 12px; margin-top: 2px; margin-bottom: 2px; }
+  li { margin-bottom: 1px; font-size: 9px; line-height: 1.3; }
+
+  .code-block {
+    background: #1a1f26;
+    color: #e8e8e8;
+    padding: 3px 5px;
+    border-radius: 4px;
+    font-size: 9px;
+    line-height: 1.2;
+    margin: 1px 0;
+    overflow-x: auto;
+    border: 0.5px solid var(--border);
+  }
+
+  .flex-row {
+    display: flex;
+    gap: 8px;
+    margin-top: 2px;
+    margin-bottom: 2px;
+  }
+
+  .flex-col {
+    flex: 1;
+  }
+
+  .badge {
+    display: inline-block;
+    border-radius: 3px;
+    padding: 1px 5px;
+    font-size: 8px;
+    font-weight: 600;
+    background: var(--blue-bg);
+    color: var(--blue);
+    margin-right: 3px;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 9px;
+    margin: 2px 0;
+  }
+
+  table th, table td {
+    border: 0.5px solid var(--border);
+    padding: 2px 4px;
+    text-align: left;
+  }
+
+  table th {
+    background: var(--bg3);
+    font-weight: 600;
+    color: var(--blue-dim);
+  }
+</style>
+</head>
+<body>
+
+<!-- PAGE 1 -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <div class="logo">🔧</div>
+      <div>
+        <div class="page-title">Shell Scripting</div>
+        <div class="page-subtitle">Bash Quick Reference — DevOps Edition</div>
+      </div>
+    </div>
+    <div class="page-meta">
+      <strong>Cheatsheet</strong><br>
+      All Commands & Patterns
+    </div>
+    <div class="page-num">1</div>
+  </div>
+
+  <div class="grid cols-3">
+    <!-- Card 1: Create & Run -->
+    <div class="card">
+      <div class="card-title"><span class="dot dot-blue"></span>Create & Run</div>
+      <table class="cmd-table">
+        <tr><td><code>vi script.sh</code></td><td>Edit script</td></tr>
+        <tr><td><code>#!/bin/bash</code></td><td>Shebang line</td></tr>
+        <tr><td><code>chmod 755 script.sh</code></td><td>Make executable</td></tr>
+        <tr><td><code>./script.sh</code></td><td>Run script</td></tr>
+        <tr><td><code>bash script.sh</code></td><td>Run in bash</td></tr>
+        <tr><td><code>source script.sh</code></td><td>Run in current shell</td></tr>
+      </table>
+    </div>
+
+    <!-- Card 2: Variables -->
+    <div class="card">
+      <div class="card-title"><span class="dot dot-blue"></span>Variables</div>
+      <table class="cmd-table">
+        <tr><td><code>VAR="value"</code></td><td>Assign</td></tr>
+        <tr><td><code>echo "$VAR"</code></td><td>Use variable</td></tr>
+        <tr><td><code>echo ${VAR}</code></td><td>Braces</td></tr>
+        <tr><td><code>export VAR</code></td><td>Env variable</td></tr>
+        <tr><td><code>readonly VAR</code></td><td>Make constant</td></tr>
+        <tr><td><code>unset VAR</code></td><td>Remove variable</td></tr>
+      </table>
+    </div>
+
+    <!-- Card 3: Special Variables -->
+    <div class="card">
+      <div class="card-title"><span class="dot dot-green"></span>Special Variables</div>
+      <table class="cmd-table">
+        <tr><td><code>$0</code></td><td>Script name</td></tr>
+        <tr><td><code>$1, $2</code></td><td>Arguments</td></tr>
+        <tr><td><code>$#</code></td><td>Arg count</td></tr>
+        <tr><td><code>$@</code></td><td>All args (array)</td></tr>
+        <tr><td><code>$$</code></td><td>Process ID</td></tr>
+        <tr><td><code>$?</code></td><td>Last exit code</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="grid cols-3">
+    <!-- Card 4: Conditionals -->
+    <div class="card">
+      <div class="card-title"><span class="dot dot-blue"></span>Conditionals</div>
+      <div class="code-block">if [ "$a" -eq "$b" ]; then
+  echo "equal"
+elif [ "$a" -lt "$b" ]; then
+  echo "less"
+else
+  echo "greater"
+fi</div>
+    </div>
+
+    <!-- Card 5: File Tests -->
+    <div class="card">
+      <div class="card-title"><span class="dot dot-orange"></span>File Tests</div>
+      <table class="cmd-table">
+        <tr><td><code>-e</code></td><td>Exists</td></tr>
+        <tr><td><code>-f</code></td><td>Regular file</td></tr>
+        <tr><td><code>-d</code></td><td>Directory</td></tr>
+        <tr><td><code>-r/-w/-x</code></td><td>Readable/writable/executable</td></tr>
+        <tr><td><code>-s</code></td><td>Not empty</td></tr>
+        <tr><td><code>-L</code></td><td>Symlink</td></tr>
+      </table>
+    </div>
+
+    <!-- Card 6: String Tests -->
+    <div class="card">
+      <div class="card-title"><span class="dot dot-green"></span>String Tests</div>
+      <table class="cmd-table">
+        <tr><td><code>= / !=</code></td><td>Equal/not equal</td></tr>
+        <tr><td><code>-z</code></td><td>Empty string</td></tr>
+        <tr><td><code>-n</code></td><td>Not empty</td></tr>
+        <tr><td><code>[[ =~ ]]</code></td><td>Regex match</td></tr>
+        <tr><td><code>[[ * ]]</code></td><td>Pattern match</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="grid cols-3">
+    <!-- Card 7: Loops -->
+    <div class="card">
+      <div class="card-title"><span class="dot dot-blue"></span>For Loop</div>
+      <div class="code-block">for i in {1..10}; do
+  echo "$i"
+done
+
+for file in *.txt; do
+  echo "$file"
+done
+
+for ((i=0; i<10; i++)); do
+  echo "$i"
+done</div>
+    </div>
+
+    <!-- Card 8: While Loop -->
+    <div class="card">
+      <div class="card-title"><span class="dot dot-orange"></span>While Loop</div>
+      <div class="code-block">while [ "$count" -lt 5 ]; do
+  echo "$count"
+  ((count++))
+done
+
+while true; do
+  echo "Infinite loop"
+  sleep 1
+done</div>
+    </div>
+
+    <!-- Card 9: Case/Switch -->
+    <div class="card">
+      <div class="card-title"><span class="dot dot-green"></span>Case Statement</div>
+      <div class="code-block">case "$var" in
+  start)
+    echo "Starting..."
+    ;;
+  stop)
+    echo "Stopping..."
+    ;;
+  *)
+    echo "Unknown"
+    ;;
+esac</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- PAGE 2 -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <div class="logo">🔧</div>
+      <div>
+        <div class="page-title">Shell Scripting (cont'd)</div>
+        <div class="page-subtitle">Advanced Patterns & I/O</div>
+      </div>
+    </div>
+    <div class="page-meta">
+      <strong>Redirection</strong><br>
+      Functions & Arrays
+    </div>
+    <div class="page-num">2</div>
+  </div>
+
+  <div class="grid cols-3">
+    <!-- Card 10: Redirection -->
+    <div class="card">
+      <div class="card-title"><span class="dot dot-blue"></span>I/O Redirection</div>
+      <table class="cmd-table">
+        <tr><td><code>&gt;</code></td><td>Redirect stdout (overwrite)</td></tr>
+        <tr><td><code>&gt;&gt;</code></td><td>Redirect stdout (append)</td></tr>
+        <tr><td><code>2&gt;</code></td><td>Redirect stderr</td></tr>
+        <tr><td><code>2&gt;&gt;</code></td><td>Stderr append</td></tr>
+        <tr><td><code>&amp;&gt;</code></td><td>Both stdout+stderr</td></tr>
+        <tr><td><code>2&gt;&amp;1</code></td><td>Stderr to stdout</td></tr>
+        <tr><td><code>|</code></td><td>Pipe to next cmd</td></tr>
+      </table>
+    </div>
+
+    <!-- Card 11: Functions -->
+    <div class="card">
+      <div class="card-title"><span class="dot dot-orange"></span>Functions</div>
+      <div class="code-block">my_func() {
+  local var="$1"
+  echo "Hello $var"
+  return 0
+}
+
+my_func "World"</div>
+      <ul style="margin-top: 3px;">
+        <li><code>local</code> — scoped variable</li>
+        <li><code>return N</code> — exit code</li>
+        <li><code>$1..$9</code> — function args</li>
+      </ul>
+    </div>
+
+    <!-- Card 12: Arrays -->
+    <div class="card">
+      <div class="card-title"><span class="dot dot-green"></span>Arrays</div>
+      <div class="code-block">arr=(one two three)
+echo "${arr[0]}"     # one
+echo "${arr[@]}"     # all
+echo "${#arr[@]}"    # count
+
+# Associative
+declare -A map
+map[name]="John"</div>
+    </div>
+  </div>
+
+  <div class="grid cols-3">
+    <!-- Card 13: Parameter Expansion -->
+    <div class="card">
+      <div class="card-title"><span class="dot dot-blue"></span>Parameter Expansion</div>
+      <table class="cmd-table">
+        <tr><td><code>${var:-def}</code></td><td>Default if empty</td></tr>
+        <tr><td><code>${var:=def}</code></td><td>Assign default</td></tr>
+        <tr><td><code>${var#pat}</code></td><td>Remove prefix</td></tr>
+        <tr><td><code>${var%pat}</code></td><td>Remove suffix</td></tr>
+        <tr><td><code>${var/old/new}</code></td><td>Replace</td></tr>
+        <tr><td><code>${var:0:5}</code></td><td>Substring</td></tr>
+      </table>
+    </div>
+
+    <!-- Card 14: Arithmetic -->
+    <div class="card">
+      <div class="card-title"><span class="dot dot-orange"></span>Arithmetic</div>
+      <div class="code-block">a=5
+((a += 3))        # 8
+sum=$((1 + 2))    # 3
+expr $a + $b      # expr
+let "x = 10 * 2"  # let</div>
+    </div>
+
+    <!-- Card 15: Regex & Pattern -->
+    <div class="card">
+      <div class="card-title"><span class="dot dot-green"></span>Regex & Patterns</div>
+      <div class="code-block">if [[ $str =~ ^[0-9]+$ ]]; then
+  echo "number"
+fi
+
+[[ $file == *.txt ]] # glob
+[[ $str == *word* ]] # contains</div>
+    </div>
+  </div>
+
+  <div class="grid cols-3">
+    <!-- Card 16: Heredoc -->
+    <div class="card">
+      <div class="card-title"><span class="dot dot-blue"></span>Heredoc / Here-string</div>
+      <div class="code-block">cat &lt;&lt;EOF &gt; file.txt
+Line 1
+Line 2
+EOF
+
+# Here-string
+grep pattern &lt;&lt;&lt; "$var"</div>
+    </div>
+
+    <!-- Card 17: Conditional Operators -->
+    <div class="card">
+      <div class="card-title"><span class="dot dot-orange"></span>Conditions</div>
+      <table class="cmd-table">
+        <tr><td><code>-eq / -ne</code></td><td>Equal/not equal</td></tr>
+        <tr><td><code>-lt / -le</code></td><td>Less than/equal</td></tr>
+        <tr><td><code>-gt / -ge</code></td><td>Greater/equal</td></tr>
+        <tr><td><code>-a / -o</code></td><td>AND / OR</td></tr>
+        <tr><td><code>! test</code></td><td>NOT</td></tr>
+      </table>
+    </div>
+
+    <!-- Card 18: [ vs [[ -->
+    <div class="card">
+      <div class="card-title"><span class="dot dot-green"></span>[ vs [[</div>
+      <ul>
+        <li><code>[</code> — POSIX portable</li>
+        <li><code>[[</code> — Bash, safer</li>
+        <li><code>[[</code> — handles spaces/empty</li>
+        <li><code>[[</code> — regex <code>=~</code></li>
+        <li>Always quote: <code>"$var"</code></li>
+      </ul>
+    </div>
+  </div>
+
+</div>
+
+<!-- PAGE 3 -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <div class="logo">🔧</div>
+      <div>
+        <div class="page-title">Shell Scripting (cont'd)</div>
+        <div class="page-subtitle">Advanced Topics & Safety</div>
+      </div>
+    </div>
+    <div class="page-meta">
+      <strong>Safety, Parsing</strong><br>
+      Error Handling
+    </div>
+    <div class="page-num">3</div>
+  </div>
+
+  <div class="grid cols-3">
+    <!-- Card 19: Safety -->
+    <div class="card">
+      <div class="card-title"><span class="dot dot-blue"></span>Script Safety</div>
+      <div class="code-block">#!/bin/bash
+set -euo pipefail
+# -e: exit on error
+# -u: unset vars error
+# -o pipefail: pipe fails if any part fails</div>
+      <ul style="margin-top: 3px;">
+        <li><code>set -x</code> — debug/trace</li>
+        <li>Always quote variables</li>
+        <li><code>chmod 755</code> not 777</li>
+        <li>Use <code>./script.sh</code></li>
+      </ul>
+    </div>
+
+    <!-- Card 20: getopts Parsing -->
+    <div class="card">
+      <div class="card-title"><span class="dot dot-orange"></span>Argument Parsing</div>
+      <div class="code-block">while getopts ":u:p:h" opt; do
+  case $opt in
+    u) user="$OPTARG" ;;
+    p) pass="$OPTARG" ;;
+    h) echo "help"; exit 0 ;;
+    \?) echo "Invalid" ;;
+  esac
+done</div>
+    </div>
+
+    <!-- Card 21: Trap & Cleanup -->
+    <div class="card">
+      <div class="card-title"><span class="dot dot-green"></span>Trap & Signals</div>
+      <div class="code-block">trap cleanup EXIT INT TERM
+
+cleanup() {
+  rm -f /tmp/tempfile
+  echo "Cleaned up"
+}
+
+# Signal handlers
+trap 'echo "CTRL+C"; exit 2' INT</div>
+    </div>
+  </div>
+
+  <div class="grid cols-3">
+    <!-- Card 22: Read Input -->
+    <div class="card">
+      <div class="card-title"><span class="dot dot-blue"></span>Read Input</div>
+      <div class="code-block">read -p "Name: " name
+read -s -p "Pass: " pass
+read -n 1 -p "Y/N: " choice
+read -t 5 -p "5s timeout: " input</div>
+      <ul style="margin-top: 3px;">
+        <li><code>-p</code> — prompt</li>
+        <li><code>-s</code> — silent (pwd)</li>
+        <li><code>-t</code> — timeout</li>
+      </ul>
+    </div>
+
+    <!-- Card 23: Command Substitution -->
+    <div class="card">
+      <div class="card-title"><span class="dot dot-orange"></span>Command Substitution</div>
+      <table class="cmd-table">
+        <tr><td><code>$(cmd)</code></td><td>Modern syntax</td></tr>
+        <tr><td><code>`cmd`</code></td><td>Legacy (avoid)</td></tr>
+        <tr><td><code>&lt;(cmd)</code></td><td>Process subst</td></tr>
+        <tr><td><code>cmd1 | cmd2</code></td><td>Pipe</td></tr>
+      </table>
+    </div>
+
+    <!-- Card 24: Subshells -->
+    <div class="card">
+      <div class="card-title"><span class="dot dot-green"></span>Subshells vs Current</div>
+      <table class="cmd-table">
+        <tr><td><code>( cmd )</code></td><td>Subshell</td></tr>
+        <tr><td><code>{ cmd; }</code></td><td>Current shell</td></tr>
+        <tr><td><code>. script</code></td><td>Source (current)</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="grid cols-2">
+    <!-- Card 25: Common Patterns -->
+    <div class="card">
+      <div class="card-title"><span class="dot dot-blue"></span>Common Patterns</div>
+      <div class="code-block"># Check if arg exists
+[ -z "$1" ] && { echo "Need arg"; exit 1; }
+
+# Check if file exists
+[ -f "$file" ] || touch "$file"
+
+# Loop over files
+find . -name "*.log" | while read f; do
+  echo "$f"
+done
+
+# Safe temp file
+tmpfile=$(mktemp)
+trap "rm -f $tmpfile" EXIT
+
+# Check if running as root
+[ "$EUID" -ne 0 ] && { echo "Need root"; exit 1; }
+
+# Command success/failure
+cmd_that_might_fail || true
+grep pattern file || echo "Not found"</div>
+    </div>
+
+    <!-- Card 26: Useful Commands -->
+    <div class="card">
+      <div class="card-title"><span class="dot dot-orange"></span>Useful Tools</div>
+      <table class="cmd-table">
+        <tr><td><code>grep</code></td><td>Search lines</td></tr>
+        <tr><td><code>sed 's/a/b/'</code></td><td>Stream editor</td></tr>
+        <tr><td><code>awk '{print $1}'</code></td><td>Field processor</td></tr>
+        <tr><td><code>cut -d: -f1</code></td><td>Cut fields</td></tr>
+        <tr><td><code>sort / uniq</code></td><td>Sort/deduplicate</td></tr>
+        <tr><td><code>wc -l</code></td><td>Count lines</td></tr>
+        <tr><td><code>xargs</code></td><td>Args from stdin</td></tr>
+        <tr><td><code>tee file</code></td><td>Write + display</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div style="position: relative; z-index: 1; margin-top: 8px; padding-top: 6px; border-top: 1px solid var(--border); font-size: 8px; color: #4a5260;">
+    <strong>Quick Tips:</strong> Always quote variables ($var). Use [[ ]] for bash-only. Test files before modifying. Use trap for cleanup. Add -x to debug. Use || true to ignore failures in CI/CD.
+  </div>
+
+</div>
+
+<div class="page-footer">
+  <div class="credit">Created by Nagubandi Mahesh</div>
+  <div>devops-knowledge-base</div>
+</div>
+
+</body>
+</html>
+
